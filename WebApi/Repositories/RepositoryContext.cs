@@ -8,7 +8,7 @@ namespace WebApi.Repositories
     {
         public RepositoryContext(DbContextOptions options) : base(options) { }
 
-        DbSet<Book> Books { get; set; }
+        public DbSet<Book> Books { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
