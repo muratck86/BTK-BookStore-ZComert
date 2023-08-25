@@ -97,3 +97,12 @@
 	  "price": {{$randomPrice}}
 	}
 	```
+	
+# 3. A New Api project and EntityFramework Core
+- Add a new ASP.NET Core Web API project using VS or terminal. Specifications:
+	- NET6.0
+	- No Authentication
+	- Configure for Https
+	- Use Controllers
+	- Enable OpenAPI support
+- Delete WeatherForecast model and controller.
