@@ -140,3 +140,8 @@
 - Create Controller Methods.
 - To Use postman for testing, the request collection of the workspace that we created can be used by changing the port number of the beseUrl variable.
 - For PATCH verb and its method, install NewtonsoftJson and JsonPatch packages and add services record in the Program.cs
+# Layered Architecture
+## Entities Layer
+- Add a Class Library project named Entitites
+- Move Book class under the WebApi/Models folder. And Delete the folder.
+- Add reference to Entities into WebApi project and don't forget to edit namespaces while moving Book.class and resolvings.
