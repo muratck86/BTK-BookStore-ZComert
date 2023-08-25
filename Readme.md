@@ -1,11 +1,11 @@
-# A RESTful API for a Book Store
+# 1. A Brief Oveview of a RESTful API
 ##  Creating the first project
 - Create BookStore Folder and a BookStore solution in it.
 - Create BookStore/BookStoreApi Folder and BookStoreApi "webapi" (NET6.0) project and add it to the solution.
 - Delete example model and controller.
 - Add a Book model under Models (create) folder.
 - Add a BooksController (Empty WebApi Controller) under Controllers folder.
-### Adding In Memory Mock Data
+### Adding In-Memory Mock Data
 - Add a Data folder
 - Add a static ApplicationContext class into Data folder
 - Add Crud methods to controller.
@@ -60,7 +60,7 @@
 		  }
 		]
 	```
-# Using Postman
+# 2. Using Postman
 - Create workspace under Workspaces tab.
 	- Define a Name and description
 	- Select personal
@@ -79,7 +79,7 @@
     	pm.response.to.have.status(200)
     })
 	```
-## Randdom Functions
+## Random Functions
 - Mock data may be produced using postman and selected requests can be sent multiple times using iterations.
 	- To send a request 100 times, 
 	- Click on ... of the collection name or right click on the collection name (Books),
@@ -97,4 +97,3 @@
 	  "price": {{$randomPrice}}
 	}
 	```
-	
