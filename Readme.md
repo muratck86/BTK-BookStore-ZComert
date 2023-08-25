@@ -118,3 +118,18 @@
 ```
 	Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 6.0.10 -ProjectName WebApi
 ```
+## Create Migations
+- Add Microsoft.EntityFrameworkCore.Tools Package to manage migrations. This package is needed for command sets related to migrations and db operations. In the PMC:
+```
+	Install-Package Microsoft.EntityFrameworkCore.Tools -Version 6.0.10 -ProjectName WebApi
+```
+- Another package needed for code-first approach is the design package, This package is needed for the app. In the PMC: 
+```
+	Install-Package Microsoft.EntityFrameworkCore.Design -Version 6.0.10 -ProjectName WebApi
+```
+- Create migration and database in the PMC (WebApi must be selected as default project):
+```
+	Add-Migration Init
+	Update-Database
+```
+- At this point there was a punctuation error in the connection string in the appsettings.json file. It has to corrected in order to Update Database succeeds.
