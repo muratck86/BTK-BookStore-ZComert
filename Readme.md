@@ -133,3 +133,5 @@
 	Update-Database
 ```
 - At this point there was a punctuation error in the connection string in the appsettings.json file. It has to corrected in order to Update Database succeeds.
+
+- Add "SeedData" migration and update db after creating BookConfig and overriding the OnModelCreating methot.
