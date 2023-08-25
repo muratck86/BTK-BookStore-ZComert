@@ -135,3 +135,8 @@
 - At this point there was a punctuation error in the connection string in the appsettings.json file. It has to corrected in order to Update Database succeeds.
 
 - Add "SeedData" migration and update db after creating BookConfig and overriding the OnModelCreating methot.
+
+## Data manipulation
+- Create Controller Methods.
+- To Use postman for testing, the request collection of the workspace that we created can be used by changing the port number of the beseUrl variable.
+- For PATCH verb and its method, install NewtonsoftJson and JsonPatch packages and add services record in the Program.cs
