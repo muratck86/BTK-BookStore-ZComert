@@ -106,3 +106,15 @@
 	- Use Controllers
 	- Enable OpenAPI support
 - Delete WeatherForecast model and controller.
+- In the Solution Explorer, set this project as start up project.
+
+## EntitiyFramework Core
+- Add package Microsoft.EntityFrameworkCore, either use nuget package manager or use Package Manager Console (as follows):
+```
+	Install-Package Microsoft.EntityFrameworkCore -Version 6.0.10 -ProjectName WebApi
+```
+- Add "ConnectionStrings" to appsettings.json file.
+- Add Microsoft.EntityFrameworkCore.SqlServer package to the project by nuget or PMC:
+```
+	Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 6.0.10 -ProjectName WebApi
+```
