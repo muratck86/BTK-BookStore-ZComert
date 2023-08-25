@@ -13,7 +13,7 @@
 	- for this, these two packages must be installed:
 		- Microsoft.AspNetCore.Mvc.NewtonsoftJson (6.0.10)
 		- Microsoft.AspNetCore.JsonPatch (6.0.10
-	- after installing packages, NewtonsoftJson must be added to de services in the Program.cs:
+	- after installing packages, NewtonsoftJson must be added to the services in the Program.cs:
 		change this line,
 		```C#
 		builder.Services.AddControllers();
@@ -23,7 +23,7 @@
 		builder.Services.AddControllers()
 			.AddNewtonsoftJson();
 		```
-	- Patch in work request body templete:
+	- How to send a PATCH request? Below is the body templete, notice that it is a list:
 	```
 		[
 		  {
