@@ -143,5 +143,5 @@
 # Layered Architecture
 ## Entities Layer
 - Add a Class Library project named Entitites
-- Move Book class under the WebApi/Models folder. And Delete the folder.
+- Move Book class under the WebApi/Models folder to Entities/Models And Delete the WebApi/Models folder.
 - Add reference to Entities into WebApi project and don't forget to edit namespaces while moving Book.class and resolvings.
