@@ -162,3 +162,9 @@
 - Create BookRepository implements IBookRepository and extends BookRepositoryBase
 - Create IRepositoryManager under Contracts
 - Create RepositoryManager implements IRepositoryManager under EfCore
+### Lazy Loading
+- Refactor RepositoryManager
+### Service Extensions
+- Create Extensions folder under WebApi project.
+- Create ServicesExtensions under Extensions folder.
+
