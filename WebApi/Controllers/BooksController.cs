@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Repositories.Contracts;
 using Repositories.EfCore;
 using System.Linq;
 
@@ -11,11 +12,11 @@ namespace WebApi.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly RepositoryContext _context;
+        private IRepositoryManager _repositoryManager;
 
-        public BooksController(RepositoryContext context)
+        public BooksController(IRepositoryManager repositoryManager)
         {
-            _context = context;
+            _repositoryManager = repositoryManager;
         }
 
         [HttpGet]
@@ -23,7 +24,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var result = _context.Books.ToList();
+                var result = _repositoryManager.Book.GetAllBooks(false);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -37,7 +38,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                var book = GetBook(id);
+                var book = _repositoryManager.Book.GetOneBookById(id, false);
                 return book is not null
                     ? Ok(book) //200
                     : NotFound(); //404
@@ -56,8 +57,8 @@ namespace WebApi.Controllers
                 if (book is null || book.Id > 0)
                     return BadRequest(); //400
 
-                _context.Books.Add(book);
-                _context.SaveChanges();
+                _repositoryManager.Book.CreateOneBook(book);
+                _repositoryManager.Save();
 
                 return StatusCode(201, book);
                 //return Created($"/{book.Id}", book);
@@ -71,15 +72,14 @@ namespace WebApi.Controllers
         [HttpPut("{id:int}")]
         public IActionResult UpdateABook([FromRoute(Name = "id")] int id, [FromBody] Book book)
         {
-            var result = GetBook(id);
+            var result = _repositoryManager.Book.GetOneBookById(id, true);
             if (result is null)
                 return NotFound(); //404
 
             result.Title = book.Title;
             result.Price = book.Price;
 
-            //_context.Books.Update(result);
-            _context.SaveChanges();
+            _repositoryManager.Save();
 
             if (id != book.Id)
                 return BadRequest("You can not change id!"); //400
@@ -90,14 +90,13 @@ namespace WebApi.Controllers
         [HttpDelete("{id:int}")]
         public IActionResult DeleteABook([FromRoute(Name = "id")] int id)
         {
-            var book = GetBook(id);
+            var book = _repositoryManager.Book.GetOneBookById(id, true); ;
             if (book is null)
                 return NotFound($"No such book (id: {id})"); //404
 
-            _context.Books.Remove(book);
-            _context.SaveChanges();
+            _repositoryManager.Book.DeleteOneBook(book);
+            _repositoryManager.Save();
 
-            //return NoContent(); //204
             return Ok(book); //200
         }
 
@@ -106,18 +105,15 @@ namespace WebApi.Controllers
             [FromRoute(Name = "id")] int id,
             [FromBody] JsonPatchDocument<Book> bookPatch)
         {
-            var book = GetBook(id);
+            var book = _repositoryManager.Book.GetOneBookById(id, true);
             if (book is null)
                 return NotFound($"No such book (id: {id})"); //404
 
             bookPatch.ApplyTo(book);
+            _repositoryManager.Save();
 
             return Ok(book);
         }
 
-        private Book? GetBook(int id)
-        {
-            return _context.Books.SingleOrDefault(b => b.Id.Equals(id));
-        }
     }
 }

@@ -167,4 +167,7 @@
 ### Service Extensions
 - Create Extensions folder under WebApi project.
 - Create ServicesExtensions under Extensions folder.
+### Integration of Repository Managers to Controller
+- Inject and edit BookController to use RepositoryManager instead of Context.
+- Add a method to ServicesExtension class for IoC
 
