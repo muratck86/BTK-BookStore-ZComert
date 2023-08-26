@@ -13,7 +13,7 @@ namespace Repositories.Contracts
 
         IQueryable<T> GetByCondition(Expression<Func<T,bool>> expression, bool trackChanges);
 
-        T GetOne(Expression<Func<T,bool>> expression, bool trackChanges);
+        T? GetOne(Expression<Func<T,bool>> expression);
 
         void Create(T entity);
 

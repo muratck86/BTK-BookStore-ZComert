@@ -156,3 +156,7 @@
 - Move Config folder and the BookConfig class to Repositories/EfCore Project.
 - Delete Migrations folder in the WebApi project.
 - Resolve all usings.
+- Create an abstract RespositoryBase generic class that implements IRepositoryBase under EfCore folder.
+- Inject (protected) RepositoryContext into it to implement methods.
+- Create IBookRepository extends IRepositoryBase under Contracts.
+- Create BookRepository implements IBookRepository and extends BookRepositoryBase
