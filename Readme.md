@@ -170,4 +170,11 @@
 ### Integration of Repository Managers to Controller
 - Inject and edit BookController to use RepositoryManager instead of Context.
 - Add a method to ServicesExtension class for IoC
-
+## Services Layer
+- Add a class library named Services
+- Add a folder named Contracts
+- Add an interface named IBookService
+- Add a class named BookService implements IBookService
+- Add an interface IServiceManager
+- Add a class ServiceManager implements IServiceManager
+- Add reference to Entities project
