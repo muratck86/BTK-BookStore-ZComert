@@ -22,6 +22,8 @@ namespace Services
         {
             if (book is null)
                 throw new ArgumentNullException(nameof(book));
+            if (book.Id > 0)
+                throw new InvalidDataException("Id can not be given for Create operation.");
 
             _manager.Book.CreateOneBook(book);
             _manager.Save();

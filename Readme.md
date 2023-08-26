@@ -24,7 +24,7 @@
 			.AddNewtonsoftJson();
 		```
 	- How to send a PATCH request? Below is the body templete, notice that it is a list:
-	```
+	```Json
 		[
 		  {
 			"operationType": 0,
@@ -36,7 +36,7 @@
 		]
 	```
 	- Example operation1:
-	```
+	```Json
 		[
 		  {
 			"path": "price",
@@ -46,7 +46,7 @@
 		]
 	```
 	- Example operation2:
-	```
+	```Json
 		[
 		  {
 			"path": "price",
@@ -74,7 +74,7 @@
 ## Tests using postman
 - Test functionality of postman can be used for requests,
 	- Under the Tests tab of a selected request, test functions like below can be described:
-	```
+	```js
 	pm.test("Status code 200", function(){
     	pm.response.to.have.status(200)
     })
@@ -90,7 +90,7 @@
 	- Run.
 
 - An example request body for creating mock data using post:
-	```
+	```Json
 	{
 	  "id": {{$randomInt}},
 	  "title": "{{$randomWords}}",
@@ -180,4 +180,25 @@
 - Add reference to Entities project
 - Add a ConfigureServiceManger method to ServicesExtensions
 - Add this to Program.cs
-
+- Inject ServiceManager to BooksController
+- Edit BooksController Methods accordingly
+## Presentation Layer
+- Add a class library project named Presentation under solution
+- Rename the existing Class1 class to AssemblyReference
+- Add Controllers folder
+- Move BooksController in the WebApi project into this folder and delete them from WebApi
+- Add package Microsoft.AspNetCore.Mvc.Core 2.2.5 to this project
+- Add previously installed jsonPatch package to this project, remove from WebApi
+- Add reference to Entities and Services projects
+- Add this project to WebApis references
+- In the Program.cs change this line:
+	```C#
+	builder.Services.AddControllers()
+    .AddNewtonsoftJson();
+	```
+	to this:
+	```C#
+	builder.Services.AddControllers()
+    .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly)
+    .AddNewtonsoftJson();
+	```
