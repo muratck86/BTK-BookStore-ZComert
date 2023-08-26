@@ -226,3 +226,13 @@
 ## Using Logger in the project
 - Add logging lines wherever needed.
 
+# Global Exception Handling
+## Modeling Errors and Error Details
+- Add an ErrorModel folder to Entities project
+- Add a class ErrorDetails in this folder
+## Using Exception Handler
+- Add an ExceptionMiddlewareExtensions class into Extensions folder in the WebApi project
+- Set all Exception Status codes to 500 for now.
+- Configure Program.cs for the ConfigureExceptionHandler
+- After these steps, the app may be tested. The Exceptions thrown in te app will be serialized as ErrorDetails and the StatusCode will be set to 500: Internal Server Error
+- Remove try-catch blocks
