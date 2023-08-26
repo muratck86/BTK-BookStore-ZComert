@@ -140,7 +140,7 @@
 - Create Controller Methods.
 - To Use postman for testing, the request collection of the workspace that we created can be used by changing the port number of the beseUrl variable.
 - For PATCH verb and its method, install NewtonsoftJson and JsonPatch packages and add services record in the Program.cs
-# Layered Architecture
+# 4. Layered Architecture
 ## Entities Layer
 - Add a Class Library project named Entitites
 - Move Book class under the WebApi/Models folder to Entities/Models And Delete the WebApi/Models folder.
@@ -202,3 +202,12 @@
     .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly)
     .AddNewtonsoftJson();
 	```
+## Repository Context Factory
+- Drop database
+- Since we removed Ef from WebApi to a separate project, we can not create a migration in WebApi (although we can create in the Repositories, which we don't want to.)
+- Create a ContextFactory folder under WebApi
+- Create a RepositoryContextFactory class in it.
+- Make ConfigurationBuilder in this factory
+- Make DbContextOptionsBuilder in this factory
+- Create Init migration and update database
+
