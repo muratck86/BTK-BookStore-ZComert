@@ -145,3 +145,14 @@
 - Add a Class Library project named Entitites
 - Move Book class under the WebApi/Models folder to Entities/Models And Delete the WebApi/Models folder.
 - Add reference to Entities into WebApi project and don't forget to edit namespaces while moving Book.class and resolvings.
+## Repositories Layer
+- Add a Class Library project named Repositories
+- Add a Contracts folder under this project and add a generic interface named IRepositoryBase in it.
+- Add CRUD method signatures.
+- Add EfCore folder and move RepositoryContext from WebApi into it. 
+- Remove EntitiyFrameworkCore package from WebApi and add the package to Repositories project to resolve usings.
+- Add reference to Entities from this project.
+- Add reference to this project from WebApi project.
+- Move Config folder and the BookConfig class to Repositories/EfCore Project.
+- Delete Migrations folder in the WebApi project.
+- Resolve all usings.
