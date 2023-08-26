@@ -160,3 +160,5 @@
 - Inject (protected) RepositoryContext into it to implement methods.
 - Create IBookRepository extends IRepositoryBase under Contracts.
 - Create BookRepository implements IBookRepository and extends BookRepositoryBase
+- Create IRepositoryManager under Contracts
+- Create RepositoryManager implements IRepositoryManager under EfCore
