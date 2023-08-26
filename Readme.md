@@ -178,3 +178,6 @@
 - Add an interface IServiceManager
 - Add a class ServiceManager implements IServiceManager
 - Add reference to Entities project
+- Add a ConfigureServiceManger method to ServicesExtensions
+- Add this to Program.cs
+
