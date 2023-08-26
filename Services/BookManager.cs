@@ -12,19 +12,16 @@ namespace Services
     public class BookManager : IBookService
     {
         private readonly IRepositoryManager _manager;
+        private readonly ILoggerService _logger;
 
-        public BookManager(IRepositoryManager manager)
+        public BookManager(IRepositoryManager manager, ILoggerService logger)
         {
             _manager = manager;
+            _logger = logger;
         }
 
         public Book CreateOneBook(Book book)
         {
-            if (book is null)
-                throw new ArgumentNullException(nameof(book));
-            if (book.Id > 0)
-                throw new InvalidDataException("Id can not be given for Create operation.");
-
             _manager.Book.CreateOneBook(book);
             _manager.Save();
             return book;
@@ -34,7 +31,11 @@ namespace Services
         {
             var book = _manager.Book.GetOneBookById(id, trackChanges);
             if (book is null)
-                throw new ArgumentNullException($"No such book: {nameof(book)}");
+            {
+                var message = $"No such book: {nameof(book)}";
+                _logger.LogInfo(message);
+                throw new ArgumentNullException(message);
+            }
             _manager.Book.DeleteOneBook(book);
             _manager.Save();
         }
@@ -53,9 +54,17 @@ namespace Services
         {
             var entity = _manager.Book.GetOneBookById(id, true);
             if (entity is null)
-                throw new Exception($"No such book (id: {id})");
+            {
+                var message = $"No such book: {nameof(book)}";
+                _logger.LogInfo(message);
+                throw new Exception(message);
+            }
             if (book is null)
-                throw new ArgumentNullException(nameof (book));
+            {
+                var message =$"Argument is null {nameof(book)}";
+                _logger.LogInfo(message);
+                throw new ArgumentNullException(message);
+            }
 
             entity.Title = book.Title;
             entity.Price = book.Price;

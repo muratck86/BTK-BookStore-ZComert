@@ -211,3 +211,18 @@
 - Make DbContextOptionsBuilder in this factory
 - Create Init migration and update database
 
+# 5 Logging with NLog
+- Add ILoggerService interface into Services/Contracts
+- Install NLog.Extensions.Logging package to Service project 
+- Add LoggerManager class implements ILoggerService
+- Add nlog.config xml file to the project
+- Add record to Program.cs
+	```C#
+	LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(),"/nlog.config"));
+
+	```
+- Add an Extension Method to ServicesExtensions for IoC
+- Add Configuration for IoC to Program.cs
+## Using Logger in the project
+- Add logging lines wherever needed.
+

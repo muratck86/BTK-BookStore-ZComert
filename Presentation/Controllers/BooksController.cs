@@ -2,11 +2,6 @@
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Presentation.Controllers
 {
@@ -56,9 +51,13 @@ namespace Presentation.Controllers
         {
             try
             {
+                if (book is null)
+                    return BadRequest("No book provided.");
+                if (book.Id > 0)
+                    return BadRequest("Id can not be given for Create operation.");
+
                 _serviceManager.BookService.CreateOneBook(book);
                 return StatusCode(201, book);
-                //return Created($"/{book.Id}", book);
             }
             catch (Exception ex)
             {
