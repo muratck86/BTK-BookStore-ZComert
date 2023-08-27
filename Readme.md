@@ -243,3 +243,7 @@
 - Return to ExceptionMiddlewareExtensions class in the Extensions folder of the main project and edit it according to Exception type.
 - Refactor Related methods that throw errors or return not found responses to throw BookNotFoundException.
 - Optional: Add a new custom Exception; BadRequestException
+# AutoMapper Implementation
+- Install automapper.Extensions.Microsoft.DependencyInjection versin 12.0.0 to services project.
+- In the Program.cs add record to services
+- 
