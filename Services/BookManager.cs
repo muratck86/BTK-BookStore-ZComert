@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Entities.Exceptions;
+using Entities.Models;
 using Repositories.Contracts;
 using Services.Contracts;
 using System;
@@ -29,13 +30,9 @@ namespace Services
 
         public void DeleteOneBook(int id, bool trackChanges = false)
         {
-            var book = _manager.Book.GetOneBookById(id, trackChanges);
-            if (book is null)
-            {
-                var message = $"No such book: {nameof(book)}";
-                _logger.LogInfo(message);
-                throw new ArgumentNullException(message);
-            }
+            var book = _manager.Book.GetOneBookById(id, trackChanges) 
+                ?? throw new BookNotFoundException(id);
+
             _manager.Book.DeleteOneBook(book);
             _manager.Save();
         }
@@ -45,31 +42,23 @@ namespace Services
             return _manager.Book.GetAllBooks(trackChanges);
         }
 
-        public Book? GetOneBookById(int id, bool trackChanges = false)
+        public Book GetOneBookById(int id, bool trackChanges = false)
         {
-            return _manager.Book.GetOneBookById(id, trackChanges);
+            var book = _manager.Book.GetOneBookById(id, trackChanges)
+                ?? throw new BookNotFoundException(id);
+            return book;
         }
 
-        public void UpdateOneBook(int id, Book book, bool trackChanges = false)
+        public void UpdateOneBook(int id, Book postedBook, bool trackChanges = false)
         {
-            var entity = _manager.Book.GetOneBookById(id, true);
-            if (entity is null)
-            {
-                var message = $"No such book: {nameof(book)}";
-                _logger.LogInfo(message);
-                throw new Exception(message);
-            }
-            if (book is null)
-            {
-                var message =$"Argument is null {nameof(book)}";
-                _logger.LogInfo(message);
-                throw new ArgumentNullException(message);
-            }
+            var dbBook = _manager.Book.GetOneBookById(id, true);
+            if (dbBook is null)
+                throw new BookNotFoundException(id);
 
-            entity.Title = book.Title;
-            entity.Price = book.Price;
+            dbBook.Title = postedBook.Title;
+            dbBook.Price = postedBook.Price;
 
-            _manager.Book.UpdateOneBook(entity);
+            _manager.Book.UpdateOneBook(dbBook);
             _manager.Save();
         }
     }

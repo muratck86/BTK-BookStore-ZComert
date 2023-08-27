@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Entities.Exceptions;
+using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
@@ -19,57 +20,37 @@ namespace Presentation.Controllers
         [HttpGet]
         public ActionResult GetAllBooks()
         {
-            try
-            {
-                var result = _serviceManager.BookService.GetAllBooks(false);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            var result = _serviceManager.BookService.GetAllBooks(false);
+            return Ok(result);
+
         }
 
         [HttpGet("{id:int}")]
         public IActionResult GetOneBook([FromRoute(Name = "id")] int id)
         {
-            try
-            {
-                var book = _serviceManager.BookService.GetOneBookById(id, false);
-                return book is not null
-                    ? Ok(book) //200
-                    : NotFound(); //404
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+            var book = _serviceManager.BookService.GetOneBookById(id, false);
+            return Ok(book); //200
         }
 
         [HttpPost]
         public IActionResult CreateOneBook([FromBody] Book book)
         {
-            try
-            {
-                if (book is null)
-                    return BadRequest("No book provided.");
-                if (book.Id > 0)
-                    return BadRequest("Id can not be given for Create operation.");
+            if (book is null)
+                throw new BadRequestException("No book object provided to create.");
+            if (book.Id > 0)
+                throw new BadRequestException("Id can not be given for Create operation.");
 
-                _serviceManager.BookService.CreateOneBook(book);
-                return StatusCode(201, book);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _serviceManager.BookService.CreateOneBook(book);
+            return StatusCode(201, book);
         }
 
         [HttpPut("{id:int}")]
         public IActionResult UpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] Book book)
         {
+            if (book is null)
+                throw new BadRequestException("No book object provided for update.");
             if (id != book.Id)
-                return BadRequest("You can not change id!"); //400
+                throw new BadRequestException("You can not change id!"); //400
 
             _serviceManager.BookService.UpdateOneBook(id, book, true);
 
@@ -90,8 +71,6 @@ namespace Presentation.Controllers
             [FromBody] JsonPatchDocument<Book> bookPatch)
         {
             var book = _serviceManager.BookService.GetOneBookById(id, true);
-            if (book is null)
-                return NotFound($"No such book (id: {id})"); //404
 
             bookPatch.ApplyTo(book);
             _serviceManager.BookService.UpdateOneBook(id, book);

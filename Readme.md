@@ -236,3 +236,10 @@
 - Configure Program.cs for the ConfigureExceptionHandler
 - After these steps, the app may be tested. The Exceptions thrown in te app will be serialized as ErrorDetails and the StatusCode will be set to 500: Internal Server Error
 - Remove try-catch blocks
+## Custom Exceptions
+- Add Exceptions folder under Entities
+- Add a NotFound abstract class extends Exception into it.
+- Add a BookNotFound sealed class extends NotFound
+- Return to ExceptionMiddlewareExtensions class in the Extensions folder of the main project and edit it according to Exception type.
+- Refactor Related methods that throw errors or return not found responses to throw BookNotFoundException.
+- Optional: Add a new custom Exception; BadRequestException
