@@ -18,6 +18,19 @@ namespace Services
             _mapper = mapper;
         }
 
+        public IEnumerable<BookDto> GetAllBooks(bool trackChanges = false)
+        {
+            var books = _manager.Book.GetAllBooks(trackChanges);
+            return _mapper.Map<IEnumerable<BookDto>>(books);
+        }
+
+        public Book GetOneBookById(int id, bool trackChanges = false)
+        {
+            var book = _manager.Book.GetOneBookById(id, trackChanges)
+                ?? throw new BookNotFoundException(id);
+            return book;
+        }
+
         public Book CreateOneBook(Book book)
         {
             _manager.Book.CreateOneBook(book);
@@ -32,18 +45,6 @@ namespace Services
 
             _manager.Book.DeleteOneBook(book);
             _manager.Save();
-        }
-
-        public IEnumerable<Book> GetAllBooks(bool trackChanges = false)
-        {
-            return _manager.Book.GetAllBooks(trackChanges);
-        }
-
-        public Book GetOneBookById(int id, bool trackChanges = false)
-        {
-            var book = _manager.Book.GetOneBookById(id, trackChanges)
-                ?? throw new BookNotFoundException(id);
-            return book;
         }
 
         public void UpdateOneBook(int id, BookUpdateDto bookDto, bool trackChanges = false)

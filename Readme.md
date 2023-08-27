@@ -252,4 +252,20 @@
 - Add MappingProfile extends Profile class into AutoMapper folder.
 - Add mappings into constructor using CreateMap method.
 - Refactor BooksController and Service layer to use BookUpdateDto
+# Content Negotiation
+- Support or don't support various formats for Requests from Clients
+- Consider formats like Json, Xml and accept or don't accept, and response accordingly.
+- Configure Accept header
+- Currently the application is closed to content negotiation, meaning that, no matter what format the client requests (application/json, text/csv, text/xml, application/xml etc.), the app returns application/json format.
+- In the Program.cs Configure controllers,
+	- add RespectBrowserAcceptHeader = true to enable content negotation.
+	- add ReturnHttpNotAcceptable = true to send feedback that the format is not accepted with response 406 code.
+	- To send responses in xml format, add AddXmlDataContractSerializerFormatters
+	- Now the Api is able to respond either in Json or xml formats.
+## Understanding Serializability
+- For now, the Api cannot return list of record objects which are defined by contstructor (no props defined explicitly), in xml format, because of not being able to serialize.
+- To solve this add Serializable attribute. Bu this time, the result in xml requests will be quiet messy.
+- The absolute solution is define the classess or records with default constructors and with properties.
+
+
 
