@@ -1,4 +1,5 @@
-﻿using Entities.Exceptions;
+﻿using Entities.DataTransferObjects;
+using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -45,16 +46,16 @@ namespace Presentation.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public IActionResult UpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] Book book)
+        public IActionResult UpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] BookUpdateDto bookDto)
         {
-            if (book is null)
+            if (bookDto is null)
                 throw new BadRequestException("No book object provided for update.");
-            if (id != book.Id)
+            if (id != bookDto.Id)
                 throw new BadRequestException("You can not change id!"); //400
 
-            _serviceManager.BookService.UpdateOneBook(id, book, true);
+            _serviceManager.BookService.UpdateOneBook(id, bookDto, true);
 
-            return Ok(book); //200
+            return Ok(bookDto); //200
         }
 
         [HttpDelete("{id:int}")]
@@ -66,14 +67,20 @@ namespace Presentation.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public IActionResult PatchABook(
+        public IActionResult PatchABook( //temporary solution for Dtos
             [FromRoute(Name = "id")] int id,
             [FromBody] JsonPatchDocument<Book> bookPatch)
         {
-            var book = _serviceManager.BookService.GetOneBookById(id, true);
+            var book = _serviceManager.BookService.GetOneBookById(id, false);
 
             bookPatch.ApplyTo(book);
-            _serviceManager.BookService.UpdateOneBook(id, book);
+            var bookDto = new BookUpdateDto
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Price = book.Price
+            };
+            _serviceManager.BookService.UpdateOneBook(id, bookDto);
             return Ok(book);
         }
 

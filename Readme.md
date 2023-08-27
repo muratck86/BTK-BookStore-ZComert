@@ -246,4 +246,10 @@
 # AutoMapper Implementation
 - Install automapper.Extensions.Microsoft.DependencyInjection versin 12.0.0 to services project.
 - In the Program.cs add record to services
-- 
+- Add DataTransferObjects folder to Entities project
+- Add BookUpdateDto "record" into this folder. Dtos are not intended for manipulation hence, they are defined as records. Records are much like classes, they are also reference types. We don't define set blocks for properties in the record, instead we define init blocks. So record types become immutable types.
+- Add Utilities/AutoMapper folders under WebApi project.
+- Add MappingProfile extends Profile class into AutoMapper folder.
+- Add mappings into constructor using CreateMap method.
+- Refactor BooksController and Service layer to use BookUpdateDto
+

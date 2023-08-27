@@ -1,10 +1,6 @@
-﻿using Repositories.Contracts;
+﻿using AutoMapper;
+using Repositories.Contracts;
 using Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -12,10 +8,9 @@ namespace Services
     {
         private readonly Lazy<IBookService> _bookService;
 
-        public ServiceManager(IRepositoryManager repositoryManager,
-            ILoggerService logger)
+        public ServiceManager(IRepositoryManager repositoryManager, IMapper mapper)
         {
-            _bookService = new Lazy<IBookService>(() => new BookManager(repositoryManager,logger));
+            _bookService = new Lazy<IBookService>(() => new BookManager(repositoryManager,mapper));
         }
 
         public IBookService BookService => _bookService.Value;
