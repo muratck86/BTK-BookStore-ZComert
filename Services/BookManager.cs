@@ -24,11 +24,12 @@ namespace Services
             return _mapper.Map<IEnumerable<BookDto>>(books);
         }
 
-        public Book GetOneBookById(int id, bool trackChanges = false)
+        public BookDto GetOneBookById(int id, bool trackChanges = false)
         {
             var book = _manager.Book.GetOneBookById(id, trackChanges)
                 ?? throw new BookNotFoundException(id);
-            return book;
+            var bookDto = _mapper.Map<BookDto>(book);
+            return bookDto;
         }
 
         public Book CreateOneBook(Book book)

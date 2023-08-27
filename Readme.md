@@ -262,10 +262,19 @@
 	- add ReturnHttpNotAcceptable = true to send feedback that the format is not accepted with response 406 code.
 	- To send responses in xml format, add AddXmlDataContractSerializerFormatters
 	- Now the Api is able to respond either in Json or xml formats.
-## Understanding Serializability
+## Serializability
 - For now, the Api cannot return list of record objects which are defined by contstructor (no props defined explicitly), in xml format, because of not being able to serialize.
 - To solve this add Serializable attribute. Bu this time, the result in xml requests will be quiet messy.
 - The absolute solution is define the classess or records with default constructors and with properties.
+## Custom Formatter
+- Add Formatters folder under Utilities folder of WebApi
+- Add CsvOutputFormatter : TextOutputFormatter class in it to support csv response formats
+- Resolve MediaTypeHeaderValue using Microsoft (not System)
+- We can support only List or individual contents.
+- We can select which properties to add to response.
+- Add IMvcBuilderExtensions to Extensions folder.
+- Configure Program.cs
+- Notice that this will only work for BookDto type, so for GetOneBook request to work, we need to refactor that controller method to return BookDto.
 
 
 

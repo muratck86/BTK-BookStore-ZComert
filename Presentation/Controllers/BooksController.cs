@@ -1,4 +1,5 @@
-﻿using Entities.DataTransferObjects;
+﻿using AutoMapper;
+using Entities.DataTransferObjects;
 using Entities.Exceptions;
 using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
@@ -11,11 +12,13 @@ namespace Presentation.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private IServiceManager _serviceManager;
+        private readonly IServiceManager _serviceManager;
+        private readonly IMapper _mapper;
 
-        public BooksController(IServiceManager serviceManager)
+        public BooksController(IServiceManager serviceManager, IMapper mapper)
         {
             _serviceManager = serviceManager;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -69,19 +72,16 @@ namespace Presentation.Controllers
         [HttpPatch("{id:int}")]
         public IActionResult PatchABook( //temporary solution for Dtos
             [FromRoute(Name = "id")] int id,
-            [FromBody] JsonPatchDocument<Book> bookPatch)
+            [FromBody] JsonPatchDocument<BookDto> bookPatch)
         {
-            var book = _serviceManager.BookService.GetOneBookById(id, false);
+            var bookDto = _serviceManager.BookService.GetOneBookById(id, false);
 
-            bookPatch.ApplyTo(book);
-            var bookDto = new BookUpdateDto
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Price = book.Price
-            };
-            _serviceManager.BookService.UpdateOneBook(id, bookDto);
-            return Ok(book);
+            bookPatch.ApplyTo(bookDto);
+
+            var bookUpdateDto = _mapper.Map<BookUpdateDto>(bookDto);
+
+            _serviceManager.BookService.UpdateOneBook(id, bookUpdateDto);
+            return Ok(bookDto);
         }
 
     }
