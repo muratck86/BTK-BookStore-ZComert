@@ -4,7 +4,7 @@
     {
         public uint MinPrice { get; set; }
         public uint MaxPrice { get; set; } = uint.MaxValue;
-        public bool IsValidPriceRange => MaxPrice > MinPrice;
+        public bool IsValidPriceRange => MaxPrice > MinPrice && MaxPrice <= 10000 && MinPrice >= 10;
     }
 
 }
