@@ -328,7 +328,9 @@ The difference of the async request is, async request doesn't has to wait for th
 ## Meta data & paged list
 - Add MetaData and PagedList classes into RequestFeatures in the Entities project
 - Refactor all layers' GetAll methods.
-## Cors Configuration
+## Cors (Cross Origin resource sharing) Configuration
+- Add ConfigureCors method into ServicesExtensions
+- Add ConfigureCors call to Program.cs
 
 
 
