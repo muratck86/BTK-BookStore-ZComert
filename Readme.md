@@ -292,6 +292,17 @@
 	- Add ModelState arg to ApplyTo method in the PatchOneBook method body.
 	- Add a method signature to IBookService and implement it in the BookManager
 	- Refactor PatchOneBook method in the controller.
+# Async Programming
+- APM: Asyncronous Programming Model
+- EAP: Event-based Asyncronous Programming
+- TAP: Task-based Asyncronous Programming
+## Task-based Asyncronous Programming (TAP)
+Syncroned tasks procssed in the pipeline in the same Thread. Each Sync request is assigned to a Thread in the Thread pool. If there is no available Thread in the pool, then the sync request has to wait for a previous request to complete, and the assigned thread to return to the pool.  
+The difference of the async request is, async request doesn't has to wait for the previous process to complete. Every step in the pipeline is processed by a thread.
+- In he Repositories layer, refactor IBookRepository and BookRepository, refactor Get methods, wrap the retuned types into Task
+- In the IRepositoryManager and RepositoryManager, refactor Save method.
+- Rafactor the Methods the same way in the Services layer.
+- Refactor the Methods in the Presentation layer.
 
 
 

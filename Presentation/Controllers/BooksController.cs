@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Entities.DataTransferObjects;
+﻿using Entities.DataTransferObjects;
 using Entities.Exceptions;
-using Entities.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
@@ -20,22 +18,22 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllBooks()
+        public async Task<ActionResult> GetAllBooksAsync()
         {
-            var result = _serviceManager.BookService.GetAllBooks(false);
+            var result = await _serviceManager.BookService.GetAllBooksAsync(false);
             return Ok(result);
 
         }
 
         [HttpGet("{id:int}")]
-        public IActionResult GetOneBook([FromRoute(Name = "id")] int id)
+        public async Task<IActionResult> GetOneBookAsync([FromRoute(Name = "id")] int id)
         {
-            var book = _serviceManager.BookService.GetOneBookById(id, false);
+            var book = await _serviceManager.BookService.GetOneBookByIdAsync(id, false);
             return Ok(book); //200
         }
 
         [HttpPost]
-        public IActionResult CreateOneBook([FromBody] BookCreateDto bookDto)
+        public async Task<IActionResult> CreateOneBookAsync([FromBody] BookCreateDto bookDto)
         {
             if (bookDto is null)
                 throw new BadRequestException("No book object provided to create.");
@@ -45,12 +43,12 @@ namespace Presentation.Controllers
                 return UnprocessableEntity(ModelState);
             }
 
-            var result = _serviceManager.BookService.CreateOneBook(bookDto);
+            var result = await _serviceManager.BookService.CreateOneBookAsync(bookDto);
             return StatusCode(201, result);
         }
 
         [HttpPut("{id:int}")]
-        public IActionResult UpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] BookUpdateDto bookDto)
+        public async Task<IActionResult> UpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] BookUpdateDto bookDto)
         {
             if (!ModelState.IsValid)
             {
@@ -60,39 +58,32 @@ namespace Presentation.Controllers
             if (id != bookDto.Id)
                 throw new BadRequestException("You can not change id!"); //400
 
-            _serviceManager.BookService.UpdateOneBook(id, bookDto, true);
+            await _serviceManager.BookService.UpdateOneBookAsync(id, bookDto, true);
 
             return Ok(bookDto); //200
         }
 
         [HttpDelete("{id:int}")]
-        public IActionResult DeleteOneBook([FromRoute(Name = "id")] int id)
+        public async Task<IActionResult> DeleteOneBookAsync([FromRoute(Name = "id")] int id)
         {
-            _serviceManager.BookService.DeleteOneBook(id, false);
+            await _serviceManager.BookService.DeleteOneBookAsync(id, false);
 
             return Ok(); //200
         }
 
         [HttpPatch("{id:int}")]
-        public IActionResult PatchOneBook( //temporary solution for Dtos
-            [FromRoute(Name = "id")] int id,
-            [FromBody] JsonPatchDocument<BookUpdateDto> bookPatch)
+        public async Task<IActionResult> PatchOneBookAsync([FromRoute(Name = "id")] int id, [FromBody] JsonPatchDocument<BookUpdateDto> bookPatch)
         {
             if (bookPatch is null)
                 return BadRequest("Patch object cannot be null.");
-
-            var result = _serviceManager.BookService.GetOneBookForPatch(id, false);
-
+            var result = await _serviceManager.BookService.GetOneBookForPatchAsync(id, false);
             bookPatch.ApplyTo(result.bookUpdateDto, ModelState);
-
             TryValidateModel(result.bookUpdateDto);
-
             if (!ModelState.IsValid)
             {
                 return UnprocessableEntity(ModelState);
             }
-
-            _serviceManager.BookService.UpdateOneBook(id, result.bookUpdateDto);
+            await _serviceManager.BookService.UpdateOneBookAsync(id, result.bookUpdateDto);
             return Ok(result.bookUpdateDto);
         }
 

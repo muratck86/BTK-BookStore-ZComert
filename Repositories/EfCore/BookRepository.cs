@@ -1,10 +1,6 @@
 ﻿using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories.EfCore
 {
@@ -12,16 +8,15 @@ namespace Repositories.EfCore
     {
         public BookRepository(RepositoryContext context) : base(context) { }
 
+        public async Task<IEnumerable<Book>> GetAllBooksAsync(bool trackChanges) => 
+            await GetAll(trackChanges).OrderBy(b => b.Id).ToListAsync();
+
+        public async Task<Book> GetOneBookByIdAsync(int id, bool trackChanges) =>
+            await GetByCondition(b => b.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
+
         public void CreateOneBook(Book book) => Create(book);
 
         public void DeleteOneBook(Book book) => Delete(book);
-
-        public IQueryable<Book> GetAllBooks(bool trackChanges) =>
-            GetAll(trackChanges)
-            .OrderBy(b => b.Id);
-
-        public Book? GetOneBookById(int id, bool trackChanges) =>
-            GetByCondition(b => b.Id.Equals(id), trackChanges).SingleOrDefault();
 
         public void UpdateOneBook(Book book) => Update(book);
     }
