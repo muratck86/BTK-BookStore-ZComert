@@ -26,9 +26,7 @@ namespace Services
 
         public async Task<BookDto> GetOneBookByIdAsync(int id, bool trackChanges = false)
         {
-            var book = await _manager.Book.GetOneBookByIdAsync(id, trackChanges)
-                ?? throw new BookNotFoundException(id);
-
+            var book = await GetOneBookHelperAsync(id,trackChanges);
             var bookDto = _mapper.Map<BookDto>(book);
             return bookDto;
         }
@@ -43,19 +41,14 @@ namespace Services
 
         public async Task DeleteOneBookAsync(int id, bool trackChanges = false)
         {
-            var book = await _manager.Book.GetOneBookByIdAsync(id, trackChanges) 
-                ?? throw new BookNotFoundException(id);
-
+            var book = await GetOneBookHelperAsync(id, trackChanges);
             _manager.Book.DeleteOneBook(book);
             await _manager.SaveAsync();
         }
 
         public async Task UpdateOneBookAsync(int id, BookUpdateDto bookDto, bool trackChanges = false)
         {
-            var dbBook = await _manager.Book.GetOneBookByIdAsync(id, trackChanges);
-            if (dbBook is null)
-                throw new BookNotFoundException(id);
-
+            var dbBook = await GetOneBookHelperAsync(id, trackChanges);
             _mapper.Map(bookDto,dbBook);
 
             _manager.Book.UpdateOneBook(dbBook);
@@ -64,13 +57,16 @@ namespace Services
 
         public async Task<(BookUpdateDto bookUpdateDto, Book book)> GetOneBookForPatchAsync(int id, bool trackChanges)
         {
-            var book = await _manager.Book.GetOneBookByIdAsync(id, trackChanges);
-            if (book is null)
-                throw new BookNotFoundException(id);
-
+            var book = await GetOneBookHelperAsync(id, trackChanges);
             var bookDto = _mapper.Map<BookUpdateDto>(book);
             return (bookDto, book);
+        }
 
+        private async Task<Book> GetOneBookHelperAsync(int id, bool trackChanges)
+        {
+            var book = await _manager.Book.GetOneBookByIdAsync(id, trackChanges)
+                ?? throw new BookNotFoundException(id);
+            return book;
         }
     }
 }
