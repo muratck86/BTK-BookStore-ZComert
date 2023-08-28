@@ -334,7 +334,8 @@ The difference of the async request is, async request doesn't has to wait for th
 # Filtering
 - In the Entities project add properties to BookParameters class
 - In the Exceptions folder, make BadRequestException abstract and create two sub-classes of this class. Refactor the ExceptionMiddlewareExtensions class in the WebApi/Extensions folder accordingly.
-
+- In the Repositories project add BookRepositoriesExtensions class
+- In the BookRepository refactor the method using the Extension method.
 
 
 
