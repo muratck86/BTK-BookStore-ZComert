@@ -13,7 +13,10 @@ namespace Repositories.EfCore
             BookParameters bookParameters,
             bool trackChanges)
                     {
-            var list = await GetAll(trackChanges)
+            var list = await GetByCondition(b => 
+            b.Price >= bookParameters.MinPrice 
+            && b.Price <= bookParameters.MaxPrice
+            ,trackChanges)
                 .OrderBy(b => b.Id)
                 .ToListAsync();
 

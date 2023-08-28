@@ -2,8 +2,6 @@
 using Entities.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Services.Contracts;
-using System.Net;
-using System.Runtime.CompilerServices;
 
 namespace WebApi.Extensions
 {
@@ -23,7 +21,8 @@ namespace WebApi.Extensions
                     context.Response.StatusCode = contextFeature.Error switch
                     {
                         NotFoundExceptionBase => StatusCodes.Status404NotFound,
-                        BadRequestException => StatusCodes.Status400BadRequest,
+                        InvalidIdBadRequestException => StatusCodes.Status400BadRequest,
+                        PriceOutOfRangeBadRequestException => StatusCodes.Status400BadRequest,
                         _ => StatusCodes.Status500InternalServerError
                     };
 

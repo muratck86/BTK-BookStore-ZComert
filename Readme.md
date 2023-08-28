@@ -331,6 +331,10 @@ The difference of the async request is, async request doesn't has to wait for th
 ## Cors (Cross Origin resource sharing) Configuration
 - Add ConfigureCors method into ServicesExtensions
 - Add ConfigureCors call to Program.cs
+# Filtering
+- In the Entities project add properties to BookParameters class
+- In the Exceptions folder, make BadRequestException abstract and create two sub-classes of this class. Refactor the ExceptionMiddlewareExtensions class in the WebApi/Extensions folder accordingly.
+
 
 
 

@@ -1,7 +1,7 @@
 ﻿namespace Entities.Exceptions
 {
-    public class BadRequestException : Exception 
+    public abstract class BadRequestException : Exception 
     {
-        public BadRequestException(string message) : base(message) { }
+        protected BadRequestException(string message) : base(message) { }
     }
 }
