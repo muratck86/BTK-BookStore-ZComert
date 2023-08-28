@@ -303,6 +303,21 @@ The difference of the async request is, async request doesn't has to wait for th
 - In the IRepositoryManager and RepositoryManager, refactor Save method.
 - Rafactor the Methods the same way in the Services layer.
 - Refactor the Methods in the Presentation layer.
+# Action Filters
+## ActionFilter
+- Add ActionFilters folder into Presentation layer
+- Create a class ValidationFilterAttribute : ActionFilterAttribute
+- override needed Methods of the base class
+- Add ValidationFilter attribute on Create and Update methods of the controller
+- Remove BadRequest and UnprocessibleEntity blocks.
+- Add IoC record to Program.cs
+## LogFilter
+- Add LogDetails model into Entities/LogModel folder.
+- Add LogFilterAttribute extends ActionFilterAttribute into Presentation/ActionFilters
+- Add a method for Filter Attributes into ServicesExtensions in te main project.
+- Call this method from Program.cs to add them to the services.
+- Add attribute to BooksController to log all of the actions.
+
 
 
 

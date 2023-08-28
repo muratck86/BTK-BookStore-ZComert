@@ -1,11 +1,12 @@
 ﻿using Entities.DataTransferObjects;
-using Entities.Exceptions;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.ActionFilters;
 using Services.Contracts;
 
 namespace Presentation.Controllers
 {
+    [ServiceFilter(typeof(LogFilterAttribute))]
     [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
@@ -32,34 +33,19 @@ namespace Presentation.Controllers
             return Ok(book); //200
         }
 
+        [ValidationFilter] // alternative 1
         [HttpPost]
         public async Task<IActionResult> CreateOneBookAsync([FromBody] BookCreateDto bookDto)
         {
-            if (bookDto is null)
-                throw new BadRequestException("No book object provided to create.");
-
-            if(!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
-            }
-
             var result = await _serviceManager.BookService.CreateOneBookAsync(bookDto);
             return StatusCode(201, result);
         }
 
+        [ServiceFilter(typeof(ValidationFilterAttribute))] //alternative 2
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] BookUpdateDto bookDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return UnprocessableEntity(ModelState);
-            }
-
-            if (id != bookDto.Id)
-                throw new BadRequestException("You can not change id!"); //400
-
             await _serviceManager.BookService.UpdateOneBookAsync(id, bookDto, true);
-
             return Ok(bookDto); //200
         }
 
