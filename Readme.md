@@ -337,7 +337,9 @@ The difference of the async request is, async request doesn't has to wait for th
 - In the Repositories project add BookRepositoriesExtensions class
 - In the BookRepository refactor the method using the Extension method.
 
-
-
-
-
+# Searching
+- Add a SearchTerm property into BookParameters.
+- Refactor BookRepository to add "Search" method in the GetAll method.
+- Create a folder named Extensions in the Repositories project
+- Move BookRepositoryExtensions class into the folder
+- Add a "Search" method to the BookRepositoryExtensions class.

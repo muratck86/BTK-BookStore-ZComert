@@ -2,6 +2,7 @@
 using Entities.RequestFeatures;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
+using Repositories.Extensions;
 
 namespace Repositories.EfCore
 {
@@ -15,6 +16,7 @@ namespace Repositories.EfCore
                     {
             var list = await GetAll(trackChanges)
                 .FilterByPrice(bookParameters.MinPrice, bookParameters.MaxPrice)
+                .Search(bookParameters.SearchTerm)
                 .OrderBy(b => b.Id)
                 .ToListAsync();
 
