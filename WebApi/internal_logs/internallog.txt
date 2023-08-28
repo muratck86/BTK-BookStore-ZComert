@@ -136,3 +136,24 @@
 2023-08-28 16:36:28.9091 Info Message Template Auto Format enabled
 2023-08-28 16:36:29.3719 Info Adding target FileTarget(Name=logfile)
 2023-08-28 16:36:29.4087 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 18:00:21.5232 Info Message Template Auto Format enabled
+2023-08-28 18:00:21.9938 Info Adding target FileTarget(Name=logfile)
+2023-08-28 18:00:22.0625 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 18:05:26.6861 Info Message Template Auto Format enabled
+2023-08-28 18:05:26.8703 Info Adding target FileTarget(Name=logfile)
+2023-08-28 18:05:26.9102 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 23:45:36.5384 Info Message Template Auto Format enabled
+2023-08-28 23:45:37.0266 Info Adding target FileTarget(Name=logfile)
+2023-08-28 23:45:37.0864 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 23:59:47.3767 Info Message Template Auto Format enabled
+2023-08-28 23:59:47.5739 Info Adding target FileTarget(Name=logfile)
+2023-08-28 23:59:47.6283 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-29 00:02:52.8072 Info Message Template Auto Format enabled
+2023-08-29 00:02:52.9612 Info Adding target FileTarget(Name=logfile)
+2023-08-29 00:02:53.0026 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-29 00:05:24.4029 Info Message Template Auto Format enabled
+2023-08-29 00:05:24.5476 Info Adding target FileTarget(Name=logfile)
+2023-08-29 00:05:24.5972 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-29 00:23:28.6292 Info Message Template Auto Format enabled
+2023-08-29 00:23:28.8259 Info Adding target FileTarget(Name=logfile)
+2023-08-29 00:23:28.8864 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config

@@ -317,6 +317,20 @@ The difference of the async request is, async request doesn't has to wait for th
 - Add a method for Filter Attributes into ServicesExtensions in te main project.
 - Call this method from Program.cs to add them to the services.
 - Add attribute to BooksController to log all of the actions.
+# Pagination and Cors
+## Basic Pagination
+- Add RequestFeatures folder into Entities project,
+- Add RequestParameters abstract class in this folder
+- Add BookParameters extends RequestParameters
+- In the IBooksRepository refactor GetAll method signatures to  use BookParameters
+- Refactor the implementation of IBookRepository
+- Refactor the methods all the way up to Presentation layer.
+## Meta data & paged list
+- Add MetaData and PagedList classes into RequestFeatures in the Entities project
+- Refactor all layers' GetAll methods.
+## Cors (Cross Origin resource sharing) Configuration
+- Add ConfigureCors method into ServicesExtensions
+- Add ConfigureCors call to Program.cs
 
 
 
