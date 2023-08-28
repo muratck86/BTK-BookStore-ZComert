@@ -6,7 +6,7 @@ namespace Services.Contracts
 {
     public interface IBookService
     {
-        Task<IEnumerable<BookDto>> GetAllBooksAsync(BookParameters bookParameters,bool trackChanges=false);
+        Task<(IEnumerable<BookDto> bookDtos, MetaData metaData)> GetAllBooksAsync(BookParameters bookParameters,bool trackChanges=false);
 
         Task<BookDto> GetOneBookByIdAsync(int id, bool trackChanges=false);
 
