@@ -1,11 +1,12 @@
 ﻿using Entities.DataTransferObjects;
 using Entities.Models;
+using Entities.RequestFeatures;
 
 namespace Services.Contracts
 {
     public interface IBookService
     {
-        Task<IEnumerable<BookDto>> GetAllBooksAsync(bool trackChanges=false);
+        Task<IEnumerable<BookDto>> GetAllBooksAsync(BookParameters bookParameters,bool trackChanges=false);
 
         Task<BookDto> GetOneBookByIdAsync(int id, bool trackChanges=false);
 

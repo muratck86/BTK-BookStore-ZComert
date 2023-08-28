@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Entities.RequestFeatures;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
 
@@ -8,8 +9,14 @@ namespace Repositories.EfCore
     {
         public BookRepository(RepositoryContext context) : base(context) { }
 
-        public async Task<IEnumerable<Book>> GetAllBooksAsync(bool trackChanges) => 
-            await GetAll(trackChanges).OrderBy(b => b.Id).ToListAsync();
+        public async Task<IEnumerable<Book>> GetAllBooksAsync(
+            BookParameters bookParameters,
+            bool trackChanges) =>
+            await GetAll(trackChanges)
+            .OrderBy(b => b.Id)
+            .Skip((bookParameters.PageNumber -1) * bookParameters.PageSize)
+            .Take(bookParameters.PageSize)
+            .ToListAsync();
 
         public async Task<Book> GetOneBookByIdAsync(int id, bool trackChanges) =>
             await GetByCondition(b => b.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
