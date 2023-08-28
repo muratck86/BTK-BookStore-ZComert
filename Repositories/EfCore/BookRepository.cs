@@ -5,7 +5,7 @@ using Repositories.Contracts;
 
 namespace Repositories.EfCore
 {
-    public class BookRepository : RepositoryBase<Book>, IBookRepository
+    public sealed class BookRepository : RepositoryBase<Book>, IBookRepository
     {
         public BookRepository(RepositoryContext context) : base(context) { }
 
@@ -13,10 +13,8 @@ namespace Repositories.EfCore
             BookParameters bookParameters,
             bool trackChanges)
                     {
-            var list = await GetByCondition(b => 
-            b.Price >= bookParameters.MinPrice 
-            && b.Price <= bookParameters.MaxPrice
-            ,trackChanges)
+            var list = await GetAll(trackChanges)
+                .FilterByPrice(bookParameters.MinPrice, bookParameters.MaxPrice)
                 .OrderBy(b => b.Id)
                 .ToListAsync();
 
