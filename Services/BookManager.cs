@@ -32,11 +32,12 @@ namespace Services
             return bookDto;
         }
 
-        public Book CreateOneBook(Book book)
+        public BookDto CreateOneBook(BookCreateDto bookCreateDto)
         {
+            var book = _mapper.Map<Book>(bookCreateDto);
             _manager.Book.CreateOneBook(book);
             _manager.Save();
-            return book;
+            return _mapper.Map<BookDto>(book);
         }
 
         public void DeleteOneBook(int id, bool trackChanges = false)
@@ -58,6 +59,17 @@ namespace Services
 
             _manager.Book.UpdateOneBook(dbBook);
             _manager.Save();
+        }
+
+        public (BookUpdateDto bookUpdateDto, Book book) GetOneBookForPatch(int id, bool trackChanges)
+        {
+            var book = _manager.Book.GetOneBookById(id, trackChanges);
+            if (book is null)
+                throw new BookNotFoundException(id);
+
+            var bookDto = _mapper.Map<BookUpdateDto>(book);
+            return (bookDto, book);
+
         }
     }
 }

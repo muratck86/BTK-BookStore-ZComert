@@ -85,3 +85,39 @@
 2023-08-28 00:39:49.7406 Info Message Template Auto Format enabled
 2023-08-28 00:39:50.2242 Info Adding target FileTarget(Name=logfile)
 2023-08-28 00:39:50.2733 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 01:19:58.0269 Info Message Template Auto Format enabled
+2023-08-28 01:19:58.3057 Info Adding target FileTarget(Name=logfile)
+2023-08-28 01:19:58.3731 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 01:24:02.2573 Info Message Template Auto Format enabled
+2023-08-28 01:24:02.4896 Info Adding target FileTarget(Name=logfile)
+2023-08-28 01:24:02.5558 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 01:25:08.9910 Info Message Template Auto Format enabled
+2023-08-28 01:25:09.1561 Info Adding target FileTarget(Name=logfile)
+2023-08-28 01:25:09.2138 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 01:28:22.1661 Info Message Template Auto Format enabled
+2023-08-28 01:28:22.2999 Info Adding target FileTarget(Name=logfile)
+2023-08-28 01:28:22.3390 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 01:29:19.9180 Info Message Template Auto Format enabled
+2023-08-28 01:29:20.0535 Info Adding target FileTarget(Name=logfile)
+2023-08-28 01:29:20.0909 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 02:00:27.6766 Info Message Template Auto Format enabled
+2023-08-28 02:00:27.8773 Info Adding target FileTarget(Name=logfile)
+2023-08-28 02:00:27.9520 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 02:19:21.7857 Info Message Template Auto Format enabled
+2023-08-28 02:19:21.9529 Info Adding target FileTarget(Name=logfile)
+2023-08-28 02:19:22.0102 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 02:19:59.1629 Info Message Template Auto Format enabled
+2023-08-28 02:19:59.3003 Info Adding target FileTarget(Name=logfile)
+2023-08-28 02:19:59.3475 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 02:34:32.3653 Info Message Template Auto Format enabled
+2023-08-28 02:34:32.5216 Info Adding target FileTarget(Name=logfile)
+2023-08-28 02:34:32.6203 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 02:42:55.3949 Info Message Template Auto Format enabled
+2023-08-28 02:42:55.5181 Info Adding target FileTarget(Name=logfile)
+2023-08-28 02:42:55.5607 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 03:01:04.4914 Info Message Template Auto Format enabled
+2023-08-28 03:01:04.6657 Info Adding target FileTarget(Name=logfile)
+2023-08-28 03:01:04.7172 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-28 03:04:17.1433 Info Message Template Auto Format enabled
+2023-08-28 03:04:17.3121 Info Adding target FileTarget(Name=logfile)
+2023-08-28 03:04:17.3842 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config

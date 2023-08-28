@@ -1,10 +1,11 @@
-﻿namespace Entities.DataTransferObjects
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Entities.DataTransferObjects
 {
-    public record BookUpdateDto
+    public record BookUpdateDto : BookManipulationDto
     {
+        [Required]
         public int Id { get; init; }
-        public string Title { get; init; }
-        public decimal Price { get; init; }
     }
 
 }

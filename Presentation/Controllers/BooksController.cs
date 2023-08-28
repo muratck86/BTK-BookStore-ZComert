@@ -13,12 +13,10 @@ namespace Presentation.Controllers
     public class BooksController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
-        private readonly IMapper _mapper;
 
-        public BooksController(IServiceManager serviceManager, IMapper mapper)
+        public BooksController(IServiceManager serviceManager)
         {
             _serviceManager = serviceManager;
-            _mapper = mapper;
         }
 
         [HttpGet]
@@ -37,22 +35,28 @@ namespace Presentation.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateOneBook([FromBody] Book book)
+        public IActionResult CreateOneBook([FromBody] BookCreateDto bookDto)
         {
-            if (book is null)
+            if (bookDto is null)
                 throw new BadRequestException("No book object provided to create.");
-            if (book.Id > 0)
-                throw new BadRequestException("Id can not be given for Create operation.");
 
-            _serviceManager.BookService.CreateOneBook(book);
-            return StatusCode(201, book);
+            if(!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
+            var result = _serviceManager.BookService.CreateOneBook(bookDto);
+            return StatusCode(201, result);
         }
 
         [HttpPut("{id:int}")]
         public IActionResult UpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] BookUpdateDto bookDto)
         {
-            if (bookDto is null)
-                throw new BadRequestException("No book object provided for update.");
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
             if (id != bookDto.Id)
                 throw new BadRequestException("You can not change id!"); //400
 
@@ -62,7 +66,7 @@ namespace Presentation.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public IActionResult DeleteABook([FromRoute(Name = "id")] int id)
+        public IActionResult DeleteOneBook([FromRoute(Name = "id")] int id)
         {
             _serviceManager.BookService.DeleteOneBook(id, false);
 
@@ -70,18 +74,26 @@ namespace Presentation.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        public IActionResult PatchABook( //temporary solution for Dtos
+        public IActionResult PatchOneBook( //temporary solution for Dtos
             [FromRoute(Name = "id")] int id,
-            [FromBody] JsonPatchDocument<BookDto> bookPatch)
+            [FromBody] JsonPatchDocument<BookUpdateDto> bookPatch)
         {
-            var bookDto = _serviceManager.BookService.GetOneBookById(id, false);
+            if (bookPatch is null)
+                return BadRequest("Patch object cannot be null.");
 
-            bookPatch.ApplyTo(bookDto);
+            var result = _serviceManager.BookService.GetOneBookForPatch(id, false);
 
-            var bookUpdateDto = _mapper.Map<BookUpdateDto>(bookDto);
+            bookPatch.ApplyTo(result.bookUpdateDto, ModelState);
 
-            _serviceManager.BookService.UpdateOneBook(id, bookUpdateDto);
-            return Ok(bookDto);
+            TryValidateModel(result.bookUpdateDto);
+
+            if (!ModelState.IsValid)
+            {
+                return UnprocessableEntity(ModelState);
+            }
+
+            _serviceManager.BookService.UpdateOneBook(id, result.bookUpdateDto);
+            return Ok(result.bookUpdateDto);
         }
 
     }

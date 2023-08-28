@@ -276,5 +276,23 @@
 - Configure Program.cs
 - Notice that this will only work for BookDto type, so for GetOneBook request to work, we need to refactor that controller method to return BookDto.
 
+# Validation with Annotation
+- Add a new abstract record model, BookManipulationDto, into DataTransferObjects folder in Entities.
+- Add validation annotations to its properties.
+- Extend BookUpdateDto to BookManipulationDto
+- Add BookCreateDto:BookManipulationDto
+- Edit Service Layer,
+	- Edit IBookService
+	- Edit BookManager
+- Edit BooksController in Presentation Layer
+- To Suppress default 404 Response status code for failed validations (ModelState.Invalid condition) Configure the Program.cs
+- To return UnprocessableEntity response (Coce 422), refactor the BooksController
+- The PatchOneBook method needs extra steps.
+	- Remove NewtonsoftJson package from WebApi and install it to Presentation project.
+	- Add ModelState arg to ApplyTo method in the PatchOneBook method body.
+	- Add a method signature to IBookService and implement it in the BookManager
+	- Refactor PatchOneBook method in the controller.
+
+
 
 
