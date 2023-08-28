@@ -27,7 +27,6 @@ namespace Services
             {
                 throw new PriceOutOfRangeBadRequestException();
             }
-
             var pagedBooks = await _manager.Book.GetAllBooksAsync(bookParameters,trackChanges);
             var bookDtos = _mapper.Map<IEnumerable<BookDto>>(pagedBooks);
             return (bookDtos, pagedBooks.MetaData);

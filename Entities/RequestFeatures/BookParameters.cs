@@ -6,4 +6,5 @@
         public uint MaxPrice { get; set; } = uint.MaxValue;
         public bool IsValidPriceRange => MaxPrice > MinPrice;
     }
+
 }
