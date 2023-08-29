@@ -20,6 +20,7 @@ namespace Presentation.Controllers
             _serviceManager = serviceManager;
         }
 
+        [HttpHead]
         [HttpGet]
         [ValidateMediaType]
         public async Task<IActionResult> GetAllBooksAsync([FromQuery]BookParameters bookParameters)

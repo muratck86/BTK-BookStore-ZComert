@@ -402,7 +402,12 @@ To have Hypermedia support,
 - Crete a new private method named CreateForBooks and refactor the ReturnLinkedBooks with this method.
 
 # Http OPTIONS and HEAD Requests
+## OPTIONS verb
 - In the Presentation layer
 	- Add a new method named GetBooksOptions with HttpOptions attribute.
 	- Options request informs the Client Which Http verbs are allowed.
-	
+## HEAD verb
+- Head verb is about the Headers of a request and response. No Body.
+- It has the same features with GET verb.
+- No need for a method for HEAD. Add HttpHead attribute on GetAllBooks Method onto HttpGet attribute.
+- Will return only headers
