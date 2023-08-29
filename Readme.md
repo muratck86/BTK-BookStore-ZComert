@@ -353,3 +353,5 @@ The difference of the async request is, async request doesn't has to wait for th
 - install System.Linq.Dynamic.Core version 1.2.23
 - If OrderBy doesn't resolve automatically after installing this package, manually add using System.Linq.Dynamic.Core
 - Use this method to refactor the BookRepository.
+- In the Repositories project, add OrderQueryBuilder class into Extensions folder.
+- Use this Builders method to refactor the BookRepositoryExtensions class.
