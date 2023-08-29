@@ -53,7 +53,8 @@ namespace Services
         {
             var links = new List<Link>()
             {
-                new Link() //TO DO
+                new Link("a","b","c"), //TO DO
+                new Link("a1","b1","c1")
             };
             return links;
         }
@@ -64,7 +65,7 @@ namespace Services
             {
                 HasLinks = false,
                 ShapedEntities = shapedBooks
-            }
+            };
         }
 
         private bool ShouldGenerateLinks(HttpContext httpContext)

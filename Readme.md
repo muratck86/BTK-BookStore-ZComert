@@ -395,5 +395,7 @@ To have Hypermedia support,
 	- Change GetAll method
 	- Change IBookManager interface
 	- Change ServiceManager constructor
-
+- In the Presentation layer:
+	- Change BooksController GetAll method
+- Correct the ValidateMediaTypeAttribute and Program.cs, Add Mock links into CreateForBook method of the BookLinks class.
 

@@ -16,10 +16,11 @@ builder.Services.AddControllers(config =>
     config.RespectBrowserAcceptHeader = true;
     config.ReturnHttpNotAcceptable = true;
 })
-    .AddCustomCsvFormatter()
     .AddXmlDataContractSerializerFormatters()
-    .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly)
-    .AddNewtonsoftJson();
+    .AddCustomCsvFormatter()
+    .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
+    //.AddNewtonsoftJson();
+
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
     options.SuppressModelStateInvalidFilter = true;

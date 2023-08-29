@@ -25,13 +25,14 @@ namespace Presentation.ActionFilters
             var mediaType = context.HttpContext
                 .Request.Headers["Accept"].FirstOrDefault();
 
-            if(MediaTypeHeaderValue
+            if(!MediaTypeHeaderValue
                 .TryParse(mediaType, out MediaTypeHeaderValue? outMediaType))
             {
                 context.Result = new BadRequestObjectResult($"Supported MediaType not present.");
+                return;
             }
 
-            context.HttpContext.Items.Add("AcceptHeaderMediaType", mediaType);
+            context.HttpContext.Items.Add("AcceptHeaderMediaType", outMediaType);
         }
     }
 }
