@@ -401,3 +401,8 @@ To have Hypermedia support,
 - Implement CreateForBook method in the BookLinks class
 - Crete a new private method named CreateForBooks and refactor the ReturnLinkedBooks with this method.
 
+# Http OPTIONS and HEAD Requests
+- In the Presentation layer
+	- Add a new method named GetBooksOptions with HttpOptions attribute.
+	- Options request informs the Client Which Http verbs are allowed.
+	

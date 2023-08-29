@@ -91,5 +91,11 @@ namespace Presentation.Controllers
             return Ok(result.bookUpdateDto);
         }
 
+        [HttpOptions]
+        public IActionResult GetBooksOptions()
+        {
+            Response.Headers.Add("Allow", "GET, PUT, POST, PATCH, DELETE, HEAD, OPTIONS");
+            return Ok();
+        }
     }
 }
