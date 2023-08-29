@@ -51,10 +51,38 @@ namespace Services
 
         private List<Link> CreateForBook(HttpContext httpContext, BookDto bookDto, string fields)
         {
+            var controllerName = httpContext
+                .GetRouteData()
+                .Values["controller"]
+                .ToString()
+                .ToLower();
+            var href = $"/api/{controllerName}";
             var links = new List<Link>()
             {
-                new Link("a","b","c"), //TO DO
-                new Link("a1","b1","c1")
+                new Link
+                {
+                    Href = href + $"/{bookDto.Id}",
+                    Rel = "self",
+                    Method = "GET"
+                },
+                new Link
+                {
+                    Href = href,
+                    Rel = "create",
+                    Method = "POST"
+                },
+                new Link
+                {
+                    Href = href + $"/{bookDto.Id}",
+                    Rel = "update",
+                    Method = "PUT"
+                },
+                new Link
+                {
+                    Href = href + $"/{bookDto.Id}",
+                    Rel = "delete",
+                    Method = "DELETE"
+                }
             };
             return links;
         }
