@@ -390,5 +390,10 @@ To have Hypermedia support,
 - Then implement the BookLinks class, CreateForBook private method will be implemented later.
 - Create a LinkParameters record type into DataTransferObjects folder in  the Entities.
 - Add IoC record of BookLinks into Program.cs
+- In the service layer:
+	- Change BookManager private fields and constructor.
+	- Change GetAll method
+	- Change IBookManager interface
+	- Change ServiceManager constructor
 
 
