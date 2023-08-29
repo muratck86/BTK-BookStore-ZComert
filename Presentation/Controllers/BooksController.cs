@@ -20,6 +20,7 @@ namespace Presentation.Controllers
             _serviceManager = serviceManager;
         }
 
+        [HttpHead]
         [HttpGet]
         [ValidateMediaType]
         public async Task<IActionResult> GetAllBooksAsync([FromQuery]BookParameters bookParameters)
@@ -91,5 +92,11 @@ namespace Presentation.Controllers
             return Ok(result.bookUpdateDto);
         }
 
+        [HttpOptions]
+        public IActionResult GetBooksOptions()
+        {
+            Response.Headers.Add("Allow", "GET, PUT, POST, PATCH, DELETE, HEAD, OPTIONS");
+            return Ok();
+        }
     }
 }
