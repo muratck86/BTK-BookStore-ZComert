@@ -414,4 +414,5 @@ To have Hypermedia support,
 
 # Root Documentation
 - Add a RootController into Presentation layer
-- 
+- Create the GetRoot method.
+- Add mediaType support lines into ServicesExtensions class in the WebApi/Extensions folder.
