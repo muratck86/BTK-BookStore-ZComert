@@ -46,7 +46,24 @@ namespace Services
             }
 
             var bookCollection = new LinkCollectionWrapper<Entity>(shapedBooks);
+            CreateForBooks(httpContext, bookCollection);
             return new LinkResponse { HasLinks = true, LinkedEntities = bookCollection };
+        }
+
+        private void CreateForBooks(
+            HttpContext httpContext,
+            LinkCollectionWrapper<Entity> bookCollectionWrapper)
+        {
+            var controllerName = httpContext
+                .GetRouteData()
+                .Values["controller"]
+                .ToString().ToLower();
+            bookCollectionWrapper.Links.Add(new Link()
+            {
+                Href = $"/api/{controllerName}/",
+                Rel = "self",
+                Method = "GET"
+            });
         }
 
         private List<Link> CreateForBook(HttpContext httpContext, BookDto bookDto, string fields)

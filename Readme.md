@@ -398,4 +398,6 @@ To have Hypermedia support,
 - In the Presentation layer:
 	- Change BooksController GetAll method
 - Correct the ValidateMediaTypeAttribute and Program.cs, Add Mock links into CreateForBook method of the BookLinks class.
+- Implement CreateForBook method in the BookLinks class
+- 
 
