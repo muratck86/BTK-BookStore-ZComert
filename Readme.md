@@ -373,4 +373,31 @@ Data shaping is not an essential feature that all apis need. By this feature we 
 In the IBookService, change the signature of IBookService to return ExpandoObject
 - Change the implementation too, inject shaper into the class and refactor the GetAll method.
 - Modify the ServiceManager since the contstructor now needs another parameter.
+# Hateoas (Hypermedia as the Engine of Application State)
+To have Hypermedia support,
+- Entities project, add LinkModels folder, into folder add Link class
+- Create LinkResourceBase and LinkCollectionWrapper classes in the same folder
+- Create the Entity class in the Models folder
+- Create the ShapedEntity in the same folder.
+- In the services layed, refactor IDataShaper to use Shaped entity instead of ExpanoObject, and refactor the implementation.
+- Add LinkResponse class into LinkModels folder in the Entities
+- In the ServicesExtensions add the AddCustomMediaTypes method and call this in the Program.cs
+- Add ValidateMediaTypeAttribute class into the ActionFilters folder in te Presentation layer. Resolve MediaTypeHeaderValue in the if statement using Microsoft.
+- Add this ValidateMediaTypeAttribute into ConfigureActionFilters call in the ServicesExtensions.cs
+- Add this attribute onto GetAllBooksAsync method in the BooksController of the Presentation layer.
+- install Microsoft.AspNetCore.Mvc.Abstractions version 2.2.0 package into Entities project.
+- In the service layer, add IBookLinks interface into the contracts. Resolve HttpContext using Microsoft.AspNetCore.Http.
+- Then implement the BookLinks class, CreateForBook private method will be implemented later.
+- Create a LinkParameters record type into DataTransferObjects folder in  the Entities.
+- Add IoC record of BookLinks into Program.cs
+- In the service layer:
+	- Change BookManager private fields and constructor.
+	- Change GetAll method
+	- Change IBookManager interface
+	- Change ServiceManager constructor
+- In the Presentation layer:
+	- Change BooksController GetAll method
+- Correct the ValidateMediaTypeAttribute and Program.cs, Add Mock links into CreateForBook method of the BookLinks class.
+- Implement CreateForBook method in the BookLinks class
+- 
 

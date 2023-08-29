@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Entities.DataTransferObjects;
 using Repositories.Contracts;
 using Services.Contracts;
 
@@ -9,9 +8,13 @@ namespace Services
     {
         private readonly Lazy<IBookService> _bookService;
 
-        public ServiceManager(IRepositoryManager repositoryManager, IMapper mapper, IDataShaper<BookDto> shaper)
+        public ServiceManager(
+            IRepositoryManager repositoryManager,
+            IMapper mapper,
+            IBookLinks bookLinks)
         {
-            _bookService = new Lazy<IBookService>(() => new BookManager(repositoryManager,mapper,shaper));
+            _bookService = new Lazy<IBookService>(() => 
+            new BookManager(repositoryManager, mapper, bookLinks));
         }
 
         public IBookService BookService => _bookService.Value;
