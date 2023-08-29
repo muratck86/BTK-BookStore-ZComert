@@ -373,4 +373,13 @@ Data shaping is not an essential feature that all apis need. By this feature we 
 In the IBookService, change the signature of IBookService to return ExpandoObject
 - Change the implementation too, inject shaper into the class and refactor the GetAll method.
 - Modify the ServiceManager since the contstructor now needs another parameter.
+# Hateoas (Hypermedia as the Engine of Application State)
+To have Hypermedia support,
+- Entities project, add LinkModels folder, into folder add Link class
+- Create LinkResourceBase and LinkCollectionWrapper classes in the same folder
+- Create the Entity class in the Models folder
+- Create the ShapedEntity in the same folder.
+- In the services layed, refactor IDataShaper to use Shaped entity instead of ExpanoObject, and refactor the implementation.
+- Add LinkResponse class into LinkModels folder in the Entities
+- In the ServicesExtensions add the AddCustomMediaTypes method and call this in the Program.cs
 
