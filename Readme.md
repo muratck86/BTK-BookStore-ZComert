@@ -399,5 +399,5 @@ To have Hypermedia support,
 	- Change BooksController GetAll method
 - Correct the ValidateMediaTypeAttribute and Program.cs, Add Mock links into CreateForBook method of the BookLinks class.
 - Implement CreateForBook method in the BookLinks class
-- 
+- Crete a new private method named CreateForBooks and refactor the ReturnLinkedBooks with this method.
 
