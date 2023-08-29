@@ -382,4 +382,7 @@ To have Hypermedia support,
 - In the services layed, refactor IDataShaper to use Shaped entity instead of ExpanoObject, and refactor the implementation.
 - Add LinkResponse class into LinkModels folder in the Entities
 - In the ServicesExtensions add the AddCustomMediaTypes method and call this in the Program.cs
+- Add ValidateMediaTypeAttribute class into the ActionFilters folder in te Presentation layer. Resolve MediaTypeHeaderValue in the if statement using Microsoft.
+- Add this ValidateMediaTypeAttribute into ConfigureActionFilters call in the ServicesExtensions.cs
+- Add this attribute onto GetAllBooksAsync method in the BooksController of the Presentation layer.
 
