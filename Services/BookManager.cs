@@ -5,6 +5,7 @@ using Entities.Models;
 using Entities.RequestFeatures;
 using Repositories.Contracts;
 using Services.Contracts;
+using System.Dynamic;
 
 namespace Services
 {
@@ -12,14 +13,16 @@ namespace Services
     {
         private readonly IRepositoryManager _manager;
         private readonly IMapper _mapper;
+        private readonly IDataShaper<BookDto> _shaper;
 
-        public BookManager(IRepositoryManager manager, IMapper mapper)
+        public BookManager(IRepositoryManager manager, IMapper mapper, IDataShaper<BookDto> shaper)
         {
             _manager = manager;
             _mapper = mapper;
+            _shaper = shaper;
         }
 
-        public async Task<(IEnumerable<BookDto> bookDtos, MetaData metaData)> GetAllBooksAsync(
+        public async Task<(IEnumerable<ExpandoObject> books, MetaData metaData)> GetAllBooksAsync(
             BookParameters bookParameters,
             bool trackChanges = false)
         {
@@ -28,8 +31,9 @@ namespace Services
                 throw new PriceOutOfRangeBadRequestException();
             }
             var pagedBooks = await _manager.Book.GetAllBooksAsync(bookParameters,trackChanges);
-            var bookDtos = _mapper.Map<IEnumerable<BookDto>>(pagedBooks);
-            return (bookDtos, pagedBooks.MetaData);
+            var booksDto = _mapper.Map<IEnumerable<BookDto>>(pagedBooks);
+            var shapedBooks = _shaper.ShapeData(booksDto, bookParameters.Fields);
+            return (shapedBooks, pagedBooks.MetaData);
         }
 
         public async Task<BookDto> GetOneBookByIdAsync(int id, bool trackChanges = false)

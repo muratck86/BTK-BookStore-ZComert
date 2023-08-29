@@ -356,3 +356,21 @@ The difference of the async request is, async request doesn't has to wait for th
 - In the Repositories project, add OrderQueryBuilder class into Extensions folder.
 - Use this Builders method to refactor the BookRepositoryExtensions class.
 
+# Data Shaping
+Data shaping is not an essential feature that all apis need. By this feature we can let the client to choose which fields of the resources they want.
+- To enable this feature for all resources, add Fields property to Request parameters, or otherwise to enable for specifice resources, add this property to that parameters of that resource. (eg: for only Book, ad this prop to BookParameters class)
+- Add an interface into Contracts of Services layer
+- Implement this interface in the Services layer.
+	- Get the requested property names in the query
+	- Get the public and instance properties of the resource type by reflection
+	- Compare them to determine which of the properties requested and create a collection of them.
+	- Fetch the values of the requested properties.
+	- Create and return an ExpandoOblect from these properties and their values
+	-If a collection is requested, do this for each object and create a collection of ExpandoObjects to return.
+	- ExpandoObject is a dynamic object type to create in the runtime.
+- Create an extension method for IoC in the ServicesExtensions class in the WebApi/Extensions
+- Call this method in the Program.cs
+In the IBookService, change the signature of IBookService to return ExpandoObject
+- Change the implementation too, inject shaper into the class and refactor the GetAll method.
+- Modify the ServiceManager since the contstructor now needs another parameter.
+
