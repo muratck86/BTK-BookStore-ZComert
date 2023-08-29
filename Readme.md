@@ -343,3 +343,13 @@ The difference of the async request is, async request doesn't has to wait for th
 - Create a folder named Extensions in the Repositories project
 - Move BookRepositoryExtensions class into the folder
 - Add a "Search" method to the BookRepositoryExtensions class.
+
+# Sorting
+- Add OrderBy property into RequestParameters int the Entities project
+- Add a constructor into BookParameters class to set a default OrderBy = "Id"
+- Add a method named SortBy into BookRepositoryExtensions in the Repositories project
+- Wrie the method that handles the queries like ..books?orderby=title,price
+- Remember to resolve "BindingFlags" in the method using Refrection, not System
+- install System.Linq.Dynamic.Core version 1.2.23
+- If OrderBy doesn't resolve automatically after installing this package, manually add using System.Linq.Dynamic.Core
+- Use this method to refactor the BookRepository.

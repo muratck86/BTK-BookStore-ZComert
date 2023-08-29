@@ -17,7 +17,7 @@ namespace Repositories.EfCore
             var list = await GetAll(trackChanges)
                 .FilterByPrice(bookParameters.MinPrice, bookParameters.MaxPrice)
                 .Search(bookParameters.SearchTerm)
-                .OrderBy(b => b.Id)
+                .SortBy(bookParameters.OrderBy)
                 .ToListAsync();
 
             var pagedList = PagedList<Book>.ToPagedList(
