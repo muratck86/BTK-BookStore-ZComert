@@ -355,3 +355,4 @@ The difference of the async request is, async request doesn't has to wait for th
 - Use this method to refactor the BookRepository.
 - In the Repositories project, add OrderQueryBuilder class into Extensions folder.
 - Use this Builders method to refactor the BookRepositoryExtensions class.
+
