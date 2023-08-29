@@ -387,5 +387,8 @@ To have Hypermedia support,
 - Add this attribute onto GetAllBooksAsync method in the BooksController of the Presentation layer.
 - install Microsoft.AspNetCore.Mvc.Abstractions version 2.2.0 package into Entities project.
 - In the service layer, add IBookLinks interface into the contracts. Resolve HttpContext using Microsoft.AspNetCore.Http.
+- Then implement the BookLinks class, CreateForBook private method will be implemented later.
+- Create a LinkParameters record type into DataTransferObjects folder in  the Entities.
+- Add IoC record of BookLinks into Program.cs
 
 
