@@ -411,3 +411,7 @@ To have Hypermedia support,
 - It has the same features with GET verb.
 - No need for a method for HEAD. Add HttpHead attribute on GetAllBooks Method onto HttpGet attribute.
 - Will return only headers
+
+# Root Documentation
+- Add a RootController into Presentation layer
+- 
