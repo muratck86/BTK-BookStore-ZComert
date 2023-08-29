@@ -385,4 +385,7 @@ To have Hypermedia support,
 - Add ValidateMediaTypeAttribute class into the ActionFilters folder in te Presentation layer. Resolve MediaTypeHeaderValue in the if statement using Microsoft.
 - Add this ValidateMediaTypeAttribute into ConfigureActionFilters call in the ServicesExtensions.cs
 - Add this attribute onto GetAllBooksAsync method in the BooksController of the Presentation layer.
+- install Microsoft.AspNetCore.Mvc.Abstractions version 2.2.0 package into Entities project.
+- In the service layer, add IBookLinks interface into the contracts. Resolve HttpContext using Microsoft.AspNetCore.Http.
+
 
