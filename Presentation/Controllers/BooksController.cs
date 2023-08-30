@@ -21,7 +21,7 @@ namespace Presentation.Controllers
         }
 
         [HttpHead]
-        [HttpGet]
+        [HttpGet(Name = "GetAllBooksAsync")]
         [ValidateMediaType]
         public async Task<IActionResult> GetAllBooksAsync([FromQuery]BookParameters bookParameters)
         {
@@ -53,7 +53,7 @@ namespace Presentation.Controllers
         }
 
         [ValidationFilter] // alternative 1
-        [HttpPost]
+        [HttpPost(Name = "CreateOneBookAsync")]
         public async Task<IActionResult> CreateOneBookAsync([FromBody] BookCreateDto bookDto)
         {
             var result = await _serviceManager.BookService.CreateOneBookAsync(bookDto);

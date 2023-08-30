@@ -411,3 +411,8 @@ To have Hypermedia support,
 - It has the same features with GET verb.
 - No need for a method for HEAD. Add HttpHead attribute on GetAllBooks Method onto HttpGet attribute.
 - Will return only headers
+
+# Root Documentation
+- Add a RootController into Presentation layer
+- Create the GetRoot method.
+- Add mediaType support lines into ServicesExtensions class in the WebApi/Extensions folder.

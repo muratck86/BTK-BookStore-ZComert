@@ -70,6 +70,9 @@ namespace WebApi.Extensions
                 systemTextJsonOutputFormatter?.SupportedMediaTypes
                     .Add("application/vnd.murat.hateoas+json");
 
+                systemTextJsonOutputFormatter?.SupportedMediaTypes
+                .Add("application/vnd.murat.apiroot+json");
+
                 var xmlOutputFormatter = options
                 .OutputFormatters
                 .OfType<XmlDataContractSerializerOutputFormatter>()?
@@ -77,6 +80,9 @@ namespace WebApi.Extensions
 
                 xmlOutputFormatter?.SupportedMediaTypes
                 .Add("application/vnd.murat.hateoas+xml");
+
+                xmlOutputFormatter?.SupportedMediaTypes
+                .Add("application/vnd.murat.apiroot+xml");
 
             });
         }
