@@ -436,3 +436,20 @@ To have Hypermedia support,
 ## Convensions 
 - In the ServicesExtensions, add Convensions lines
 - Remove ApiVersion Attributes...
+
+# Caching
+- Add ResponseCache attribute on GetAll method of the BooksController. By doing this, a new header will be added to the response, meaning the response is cachable.
+- In the ServicesExtensions add a ConfigureResponseCaching method, and call this in the Program.cs
+- Add app.UseResponseCaching() under the Cors config line in the Program.cs
+- Test in the postman, (make sure in the settings of the postman, send no caching header option is off), in the firs response, we see a header "Cache-Control" showing duration of cache. If we send another request, we'll se an additional header "Age".
+- We can create Cache Profiles for various resources.
+	- In the Program.cs, in the AddControllers method, add cache profiles config.
+	- Add ResponseCache attribute with CacheProfile parameter.
+	- We'll see 300 seconds duration cache in the responses except the getall method, since it has its own ResponseCache attribute on it.
+## Caching with Marvin
+- Install Marvin.Cache.Headers (6.0.0) package into Presentation layer.
+- Add a ConfigureHttpCacheHeaders method into ServicesExtensions
+- Call this from Program.cs and add UseHttpCacheHeaders() line (make sure it is) under the Cors line.
+- Test the application, There will be 3 more headers in the response; ETag, Expires, Last-Modified.
+- The ResponseCache attributes now can be removed.
+- The default config is public cache, duration 60 seconds. We can change these in the config of Services.Extensions file or/and We can use HttpCacheExpiration attribute with parameters.

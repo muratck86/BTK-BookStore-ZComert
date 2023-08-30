@@ -1,4 +1,5 @@
 ﻿using Entities.DataTransferObjects;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -103,6 +104,23 @@ namespace WebApi.Extensions
 
                 options.Conventions.Controller<BooksV2Controller>()
                 .HasDeprecatedApiVersion(new ApiVersion(2, 0));
+            });
+        }
+
+        public static void ConfigureResponseCaching(this IServiceCollection services)
+        {
+            services.AddResponseCaching();
+        }
+
+        public static void ConfigureHttpCacheHeaders(this IServiceCollection services)
+        {
+            services.AddHttpCacheHeaders(opt =>
+            {
+                opt.MaxAge = 90;
+                opt.CacheLocation = CacheLocation.Public;
+            }, validationOptions =>
+            {
+                 validationOptions.MustRevalidate = false;
             });
         }
     }
