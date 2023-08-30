@@ -428,3 +428,7 @@ To have Hypermedia support,
 - Cascade the method to Repositories layer.
 ## Books V2 - With URL
 - Add {v:apiversion}/ to Route attribute.
+## Books V2 - With Header
+- Remove {v:apiversion}/ from Route attributes make it as before.
+- In the ServicesExtensions add the ApiVersionReader line into AddApiVersioning method.
+## 
