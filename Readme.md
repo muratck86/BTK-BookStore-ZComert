@@ -431,4 +431,5 @@ To have Hypermedia support,
 ## Books V2 - With Header
 - Remove {v:apiversion}/ from Route attributes make it as before.
 - In the ServicesExtensions add the ApiVersionReader line into AddApiVersioning method.
-## 
+## Deprecating Versions
+- Add Deprecated = true to ApiVersion Attribute.
