@@ -453,3 +453,14 @@ To have Hypermedia support,
 - Test the application, There will be 3 more headers in the response; ETag, Expires, Last-Modified.
 - The ResponseCache attributes now can be removed.
 - The default config is public cache, duration 60 seconds. We can change these in the config of Services.Extensions file or/and We can use HttpCacheExpiration attribute with parameters.
+
+# Rate Limiting
+We can limit rate of requests. We'll respond with status code 429 Too many requests.
+- Install AspNetCoreRateLimit -Version 4.0.1 package to WebApi project.
+- In the Program.cs add AddMemoryCache to Services.
+- Add a configuration method into ServicesExtensions
+- Add a call to this method into Program.cs
+- Add a UseIpRateLimiting call into Program.cs before Cors.
+- In the testing, there will be new parameters in the response headers;
+X-Rate-Limit-Limit, X-Rate-Limit-Remaining, X-Rate-Limit-Reset.
+- The api will return Too Many Requests status code 429 when the number of requests exceeds the rate in the defined period.
