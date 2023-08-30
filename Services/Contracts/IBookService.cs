@@ -9,6 +9,8 @@ namespace Services.Contracts
     {
         Task<(LinkResponse linkResponse, MetaData metaData)> GetAllBooksAsync(LinkParameters linkParameters,bool trackChanges=false);
 
+        Task<List<Book>> GetAllBooksAsync(bool trackChanges);
+
         Task<BookDto> GetOneBookByIdAsync(int id, bool trackChanges=false);
 
         Task<BookDto> CreateOneBookAsync(BookCreateDto book);
@@ -18,6 +20,5 @@ namespace Services.Contracts
         Task DeleteOneBookAsync(int id, bool trackChanges = false);
 
         Task<(BookUpdateDto bookUpdateDto, Book book)> GetOneBookForPatchAsync(int id, bool trackChanges);
-
     }
 }
