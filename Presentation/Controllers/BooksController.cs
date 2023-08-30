@@ -1,5 +1,6 @@
 ﻿using Entities.DataTransferObjects;
 using Entities.RequestFeatures;
+using Marvin.Cache.Headers;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.ActionFilters;
@@ -12,7 +13,7 @@ namespace Presentation.Controllers
     [ServiceFilter(typeof(LogFilterAttribute))]
     [Route("api/[controller]")]
     [ApiController]
-    [ResponseCache(CacheProfileName ="5mins")]
+    //[ResponseCache(CacheProfileName ="5mins")]
     public class BooksController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -25,7 +26,8 @@ namespace Presentation.Controllers
         [HttpHead]
         [HttpGet(Name = "GetAllBooksAsync")]
         [ValidateMediaType]
-        [ResponseCache(Duration = 60)]
+        //[ResponseCache(Duration = 60)]
+        //[HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 90)]
         public async Task<IActionResult> GetAllBooksAsync([FromQuery]BookParameters bookParameters)
         {
             var linkParameters = new LinkParameters()
