@@ -1,8 +1,10 @@
 ﻿using Entities.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Presentation.ActionFilters;
+using Presentation.Controllers;
 using Repositories.Contracts;
 using Repositories.EfCore;
 using Services;
@@ -84,6 +86,23 @@ namespace WebApi.Extensions
                 xmlOutputFormatter?.SupportedMediaTypes
                 .Add("application/vnd.murat.apiroot+xml");
 
+            });
+        }
+
+        public static void ConfigureVersioning(this IServiceCollection services)
+        {
+            services.AddApiVersioning(options =>
+            {
+                options.ReportApiVersions = true;
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ApiVersionReader = new HeaderApiVersionReader("api-version");
+
+                options.Conventions.Controller<BooksController>()
+                .HasApiVersion(new ApiVersion(1, 0));
+
+                options.Conventions.Controller<BooksV2Controller>()
+                .HasDeprecatedApiVersion(new ApiVersion(2, 0));
             });
         }
     }

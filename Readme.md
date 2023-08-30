@@ -416,3 +416,23 @@ To have Hypermedia support,
 - Add a RootController into Presentation layer
 - Create the GetRoot method.
 - Add mediaType support lines into ServicesExtensions class in the WebApi/Extensions folder.
+
+# Versioning
+- Install Microsoft.AspNetCore.Mvc.Versioning (5.0.0) into presentation layer.
+- In the ServiesExtensions add a Versioning config method. Add this to Program.cs
+## Books V2 - With params
+- Add BooksV2Controller into controllers
+- Add Version 1.0 attribute to BooksController and 2.0 to BooksV2Controller
+- Create a GetAllBooksAsync method
+- Add method to the IBookService and implement it in the BookService
+- Cascade the method to Repositories layer.
+## Books V2 - With URL
+- Add {v:apiversion}/ to Route attribute.
+## Books V2 - With Header
+- Remove {v:apiversion}/ from Route attributes make it as before.
+- In the ServicesExtensions add the ApiVersionReader line into AddApiVersioning method.
+## Deprecating Versions
+- Add Deprecated = true to ApiVersion Attribute.
+## Convensions 
+- In the ServicesExtensions, add Convensions lines
+- Remove ApiVersion Attributes...
