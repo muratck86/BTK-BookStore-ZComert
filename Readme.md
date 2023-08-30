@@ -427,4 +427,4 @@ To have Hypermedia support,
 - Add method to the IBookService and implement it in the BookService
 - Cascade the method to Repositories layer.
 ## Books V2 - With URL
-- 
+- Add {v:apiversion}/ to Route attribute.
