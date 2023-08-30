@@ -433,3 +433,6 @@ To have Hypermedia support,
 - In the ServicesExtensions add the ApiVersionReader line into AddApiVersioning method.
 ## Deprecating Versions
 - Add Deprecated = true to ApiVersion Attribute.
+## Convensions 
+- In the ServicesExtensions, add Convensions lines
+- Remove ApiVersion Attributes...
