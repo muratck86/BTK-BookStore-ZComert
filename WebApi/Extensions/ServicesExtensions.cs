@@ -185,7 +185,7 @@ namespace WebApi.Extensions
                     ValidIssuer = jwtSettings["validIssuer"],
                     ValidAudience = jwtSettings["validAudience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
-                }
+                };
             });
         }
     

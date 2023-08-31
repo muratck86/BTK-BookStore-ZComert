@@ -497,3 +497,7 @@ In the Repositories project
 - In the WebApi project, add JwtSettings into appsettings.json
 - Install Microsoft.AspNetCore.Authentication.JwtBearer (6.0.0) packet to WebApi project.
 - Add a config method into ServicesExtensions and call in the Program.cs
+
+## Securing Endpoints
+- Add Authorize attribute onto GetAll method to secure the method.
+
