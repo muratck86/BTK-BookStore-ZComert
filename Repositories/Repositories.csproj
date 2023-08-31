@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Entities\Entities.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.23" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj" />
   </ItemGroup>
 
 </Project>

@@ -464,3 +464,19 @@ We can limit rate of requests. We'll respond with status code 429 Too many reque
 - In the testing, there will be new parameters in the response headers;
 X-Rate-Limit-Limit, X-Rate-Limit-Remaining, X-Rate-Limit-Reset.
 - The api will return Too Many Requests status code 429 when the number of requests exceeds the rate in the defined period.
+
+# Authentication and Authorization
+Authentication ~ Login, Authorization ~ Permits  
+Identity framework with JSON Web Token (JWT) will be used in this subject.
+## Identity
+- Install Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.0) package into Identity project.
+- In the Entities project add User : IdentityUser class into Models folder.
+- In the Repositories project, change RepositoryContext : DbContext to inherit from IdentityDbContext<User> and refactor OnModelCreating method.
+- In the WebApi project, add a new config method for Identity
+- In the Program.cs
+	- AddAuthentication
+	- ConfigureIdentity
+	- UseAuthentication before UseAuthorization
+- In the PM add a migration. Make sure default (target) project is WebApi
+- Use Update-Database command to create tables.
+
