@@ -501,3 +501,14 @@ In the Repositories project
 ## Securing Endpoints
 - Add Authorize attribute onto GetAll method to secure the method.
 
+## Authentication & JWT
+- In the entities project Add UserForAuthenticationDto record type into the Dtos folder.
+- To validate user, go to the Services Layer,
+	- Add ValidateUser method signature into IAuthenticationService
+	- Implement the method in the AuthenticationManager
+	- Add CreateToken signature into IAuthenticationService
+	- Install System.IdentityModel.Tokens.Jwt (6.14.1) package
+	- Implement CreateToken method in the AuthenticationManager
+- In the Presentation layer,
+	- Add an Authenticate (login) method with HttpPost attribute
+	- Add roles authentications to BooksController methods.

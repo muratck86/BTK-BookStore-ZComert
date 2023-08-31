@@ -16,7 +16,7 @@ namespace Presentation.Controllers
             _services = services;
         }
 
-        [HttpPost]
+        [HttpPost("register")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistrationDto)
         {
@@ -32,6 +32,18 @@ namespace Presentation.Controllers
             }
 
             return StatusCode(201);
+        }
+
+        [HttpPost("login")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticaionDto userDto)
+        {
+            if(!await _services.AuthenticationService.ValidateUser(userDto))
+                return Unauthorized();
+            return Ok(new
+            {
+                Token = await _services.AuthenticationService.CreateToken()
+            });
         }
     }
 }
