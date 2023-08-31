@@ -299,3 +299,13 @@
 2023-08-31 02:57:06.6782 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
 2023-08-31 02:57:08.9853 Info AppDomain Shutting down. LogFactory closing...
 2023-08-31 02:57:09.0018 Info LogFactory has been closed.
+2023-08-31 03:19:05.8509 Info Message Template Auto Format enabled
+2023-08-31 03:19:05.9150 Info Adding target FileTarget(Name=logfile)
+2023-08-31 03:19:05.9444 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-31 03:19:07.3214 Info AppDomain Shutting down. LogFactory closing...
+2023-08-31 03:19:07.3335 Info LogFactory has been closed.
+2023-08-31 03:19:28.7518 Info Message Template Auto Format enabled
+2023-08-31 03:19:28.8211 Info Adding target FileTarget(Name=logfile)
+2023-08-31 03:19:28.8530 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\kurtm\source\repos\Tutorials\BtkWebApiComert\BookStore\WebApi\nlog.config
+2023-08-31 03:19:30.3750 Info AppDomain Shutting down. LogFactory closing...
+2023-08-31 03:19:30.3894 Info LogFactory has been closed.

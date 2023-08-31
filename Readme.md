@@ -479,4 +479,8 @@ Identity framework with JSON Web Token (JWT) will be used in this subject.
 	- UseAuthentication before UseAuthorization
 - In the PM add a migration. Make sure default (target) project is WebApi
 - Use Update-Database command to create tables.
-
+## Defining Roles
+In the Repositories project
+- Add RoleConfiguration class into EfCore.Config folder, add roles into it.
+- In the RepositoryContext, add RoleConfiguration or use Assembly to get all type configs.
+- Add migration and update database
