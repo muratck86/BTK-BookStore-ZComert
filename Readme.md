@@ -493,3 +493,7 @@ In the Repositories project
 	- Add AuthenticationManager to ServiceManager
 - In the Presentation layer,
 	- Add a new controller AuthenticationController and the RegisterUser method.
+## JSON Web Token (JWT)
+- In the WebApi project, add JwtSettings into appsettings.json
+- Install Microsoft.AspNetCore.Authentication.JwtBearer (6.0.0) packet to WebApi project.
+- Add a config method into ServicesExtensions and call in the Program.cs
