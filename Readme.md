@@ -512,3 +512,13 @@ In the Repositories project
 - In the Presentation layer,
 	- Add an Authenticate (login) method with HttpPost attribute
 	- Add roles authentications to BooksController methods.
+## Refresh Token
+- In the Entities project, add properties RefreshToken and RefreshTokenExpiryTime to User.
+- Add a migration and update database
+- Add a Dto named TokenDto
+- In the Services layer, refactor CreateToken method of the IAuthenticationService interface and its implementation to return TokenDto instead of string.
+- In the presentation layer refactor the Authenticate method of the AuthenticationController to return TokenDto.
+- In the Services layer, add a Method named RefreshToken to IAuthenticationService and implement it in the AuthenticationManager.
+	- While implementing the method, create a  RefreshTokenBadRequestException in the Entities/Exceptions.
+- In the presentation layer, Create a new post method named Refresh into AuthenticationController.
+
