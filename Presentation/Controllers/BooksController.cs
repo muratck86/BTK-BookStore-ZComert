@@ -1,6 +1,7 @@
 ﻿using Entities.DataTransferObjects;
 using Entities.RequestFeatures;
 using Marvin.Cache.Headers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Presentation.ActionFilters;
@@ -23,6 +24,7 @@ namespace Presentation.Controllers
             _serviceManager = serviceManager;
         }
 
+        [Authorize]
         [HttpHead]
         [HttpGet(Name = "GetAllBooksAsync")]
         [ValidateMediaType]
@@ -50,6 +52,7 @@ namespace Presentation.Controllers
 
         }
 
+        [Authorize]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetOneBookAsync([FromRoute(Name = "id")] int id)
         {
@@ -57,6 +60,7 @@ namespace Presentation.Controllers
             return Ok(book); //200
         }
 
+        [Authorize(Roles = "Admin,Editor")]
         [ValidationFilter] // alternative 1
         [HttpPost(Name = "CreateOneBookAsync")]
         public async Task<IActionResult> CreateOneBookAsync([FromBody] BookCreateDto bookDto)
@@ -65,6 +69,7 @@ namespace Presentation.Controllers
             return StatusCode(201, result);
         }
 
+        [Authorize(Roles = "Admin,Editor")]
         [ServiceFilter(typeof(ValidationFilterAttribute))] //alternative 2
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateOneBook([FromRoute(Name = "id")] int id, [FromBody] BookUpdateDto bookDto)
@@ -73,6 +78,7 @@ namespace Presentation.Controllers
             return Ok(bookDto); //200
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteOneBookAsync([FromRoute(Name = "id")] int id)
         {
@@ -81,6 +87,7 @@ namespace Presentation.Controllers
             return Ok(); //200
         }
 
+        [Authorize(Roles = "Admin,Editor")]
         [HttpPatch("{id:int}")]
         public async Task<IActionResult> PatchOneBookAsync([FromRoute(Name = "id")] int id, [FromBody] JsonPatchDocument<BookUpdateDto> bookPatch)
         {
@@ -97,6 +104,7 @@ namespace Presentation.Controllers
             return Ok(result.bookUpdateDto);
         }
 
+        [Authorize]
         [HttpOptions]
         public IActionResult GetBooksOptions()
         {

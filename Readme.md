@@ -464,3 +464,61 @@ We can limit rate of requests. We'll respond with status code 429 Too many reque
 - In the testing, there will be new parameters in the response headers;
 X-Rate-Limit-Limit, X-Rate-Limit-Remaining, X-Rate-Limit-Reset.
 - The api will return Too Many Requests status code 429 when the number of requests exceeds the rate in the defined period.
+
+# Authentication and Authorization
+Authentication ~ Login, Authorization ~ Permits  
+Identity framework with JSON Web Token (JWT) will be used in this subject.
+## Identity
+- Install Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.0) package into Identity project.
+- In the Entities project add User : IdentityUser class into Models folder.
+- In the Repositories project, change RepositoryContext : DbContext to inherit from IdentityDbContext<User> and refactor OnModelCreating method.
+- In the WebApi project, add a new config method for Identity
+- In the Program.cs
+	- AddAuthentication
+	- ConfigureIdentity
+	- UseAuthentication before UseAuthorization
+- In the PM add a migration. Make sure default (target) project is WebApi
+- Use Update-Database command to create tables.
+## Defining Roles
+In the Repositories project
+- Add RoleConfiguration class into EfCore.Config folder, add roles into it.
+- In the RepositoryContext, add RoleConfiguration or use Assembly to get all type configs.
+- Add migration and update database
+## User
+- Add UserForRegistrationDto into Entities project DataTransferObjects folder
+- Add mapping for this class into MappingProfile in the Utilities folder of WebApi
+- In the Services layer, 
+	- add an interface IAuthenticationService into contracts. Add AuthenticationManager class.
+	- Add IAuthenticationService to IServiceManager
+	- Add AuthenticationManager to ServiceManager
+- In the Presentation layer,
+	- Add a new controller AuthenticationController and the RegisterUser method.
+## JSON Web Token (JWT)
+- In the WebApi project, add JwtSettings into appsettings.json
+- Install Microsoft.AspNetCore.Authentication.JwtBearer (6.0.0) packet to WebApi project.
+- Add a config method into ServicesExtensions and call in the Program.cs
+
+## Securing Endpoints
+- Add Authorize attribute onto GetAll method to secure the method.
+
+## Authentication & JWT
+- In the entities project Add UserForAuthenticationDto record type into the Dtos folder.
+- To validate user, go to the Services Layer,
+	- Add ValidateUser method signature into IAuthenticationService
+	- Implement the method in the AuthenticationManager
+	- Add CreateToken signature into IAuthenticationService
+	- Install System.IdentityModel.Tokens.Jwt (6.14.1) package
+	- Implement CreateToken method in the AuthenticationManager
+- In the Presentation layer,
+	- Add an Authenticate (login) method with HttpPost attribute
+	- Add roles authentications to BooksController methods.
+## Refresh Token
+- In the Entities project, add properties RefreshToken and RefreshTokenExpiryTime to User.
+- Add a migration and update database
+- Add a Dto named TokenDto
+- In the Services layer, refactor CreateToken method of the IAuthenticationService interface and its implementation to return TokenDto instead of string.
+- In the presentation layer refactor the Authenticate method of the AuthenticationController to return TokenDto.
+- In the Services layer, add a Method named RefreshToken to IAuthenticationService and implement it in the AuthenticationManager.
+	- While implementing the method, create a  RefreshTokenBadRequestException in the Entities/Exceptions.
+- In the presentation layer, Create a new post method named Refresh into AuthenticationController.
+
