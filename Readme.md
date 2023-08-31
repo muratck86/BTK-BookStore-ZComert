@@ -521,4 +521,8 @@ In the Repositories project
 - In the Services layer, add a Method named RefreshToken to IAuthenticationService and implement it in the AuthenticationManager.
 	- While implementing the method, create a  RefreshTokenBadRequestException in the Entities/Exceptions.
 - In the presentation layer, Create a new post method named Refresh into AuthenticationController.
-
+# Documentation
+## Configuring Swagger
+- In the WebApi project add ConfigureSwagger method into ServicesExtensions.
+- Change the records in the Program.cs (app.UseSwaggerUI, ConfigureSwagger)
+- Go to Controllers in the presentation layer. To define of which version a controller is, add the ApiExplorerSettings Attribute.

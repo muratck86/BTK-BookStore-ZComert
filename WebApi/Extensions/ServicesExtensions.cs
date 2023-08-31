@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Presentation.ActionFilters;
 using Presentation.Controllers;
 using Repositories.Contracts;
@@ -126,7 +127,7 @@ namespace WebApi.Extensions
                 opt.CacheLocation = CacheLocation.Public;
             }, validationOptions =>
             {
-                 validationOptions.MustRevalidate = false;
+                validationOptions.MustRevalidate = false;
             });
         }
 
@@ -163,7 +164,7 @@ namespace WebApi.Extensions
                 .AddEntityFrameworkStores<RepositoryContext>()
                 .AddDefaultTokenProviders();
         }
-    
+
         public static void ConfigureJWT(this IServiceCollection services,
             IConfiguration configuration)
         {
@@ -188,6 +189,56 @@ namespace WebApi.Extensions
                 };
             });
         }
-    
+
+        public static void ConfigureSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(s =>
+            {
+                s.SwaggerDoc("v1",
+                    new OpenApiInfo 
+                    { 
+                        Title = "BookStoreApi",
+                        Version = "v1",
+                        Description  ="A Btk Supported Web Api project for .NET Course",
+                        TermsOfService = new Uri("https://www.bookstoreapi.com/termsofservice"),
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Murat Can",
+                            Email = "kurt.muratcan@gmail.com",
+                            Url = new Uri("https://notyet.com"),
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = "License..."
+                        }
+                    });
+                s.SwaggerDoc("v2",
+                    new OpenApiInfo { Title = "BookStoreApi", Version = "v2" });
+                s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Place to add JWT with Bearer",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                s.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Name = "Bearer"
+                        },
+                        new List<string>()
+                    }
+                });
+            });
+        }
     }
 }

@@ -30,7 +30,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen();
 builder.Services.ConfigureSqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
@@ -50,6 +50,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication();
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(builder.Configuration);
+builder.Services.ConfigureSwagger();
 
 builder.Services.AddScoped<ValidationFilterAttribute>();
 
@@ -68,7 +69,11 @@ if(app.Environment.IsProduction())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(s =>
+    {
+        s.SwaggerEndpoint("/swagger/v1/swagger.json", "BtkStoreApi v1");
+        s.SwaggerEndpoint("/swagger/v2/swagger.json", "BtkStoreApi v2");
+    });
 }
 
 app.UseHttpsRedirection();

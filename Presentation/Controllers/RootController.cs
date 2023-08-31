@@ -6,6 +6,7 @@ namespace Presentation.Controllers
 {
     [ApiController]
     [Route("api")]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class RootController : ControllerBase
     {
         private readonly LinkGenerator _linkGenerator;
