@@ -131,7 +131,7 @@ namespace WebApi.Extensions
         {
             var rateLimitRules = new List<RateLimitRule>
             {
-                new RateLimitRule {Endpoint = "*", Limit = 3, Period = "1m"}
+                new RateLimitRule {Endpoint = "*", Limit = 10, Period = "1m"}
             };
 
             services.Configure<IpRateLimitOptions>(opt =>

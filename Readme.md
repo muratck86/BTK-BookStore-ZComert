@@ -484,3 +484,12 @@ In the Repositories project
 - Add RoleConfiguration class into EfCore.Config folder, add roles into it.
 - In the RepositoryContext, add RoleConfiguration or use Assembly to get all type configs.
 - Add migration and update database
+## User
+- Add UserForRegistrationDto into Entities project DataTransferObjects folder
+- Add mapping for this class into MappingProfile in the Utilities folder of WebApi
+- In the Services layer, 
+	- add an interface IAuthenticationService into contracts. Add AuthenticationManager class.
+	- Add IAuthenticationService to IServiceManager
+	- Add AuthenticationManager to ServiceManager
+- In the Presentation layer,
+	- Add a new controller AuthenticationController and the RegisterUser method.
