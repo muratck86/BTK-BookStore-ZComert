@@ -6,7 +6,6 @@ using Entities.Models;
 using Entities.RequestFeatures;
 using Repositories.Contracts;
 using Services.Contracts;
-using System.Dynamic;
 
 namespace Services
 {
@@ -24,7 +23,7 @@ namespace Services
         }
 
         public async Task<(LinkResponse linkResponse, MetaData metaData)> GetAllBooksAsync(
-            LinkParameters linkParameters,
+            BookLinkParameters linkParameters,
             bool trackChanges = false)
         {
             if(!linkParameters.BookParameters.IsValidPriceRange)
@@ -39,6 +38,11 @@ namespace Services
                 linkParameters.HttpContext);
 
             return (linkResponse, pagedBooks.MetaData);
+        }
+        public async Task<List<Book>> GetAllBooksAsync(bool trackChanges)
+        {
+            var books = await _manager.Book.GetAllBooksAsync(trackChanges);
+            return books;
         }
 
         public async Task<BookDto> GetOneBookByIdAsync(int id, bool trackChanges = false)
@@ -84,12 +88,6 @@ namespace Services
             var book = await _manager.Book.GetOneBookByIdAsync(id, trackChanges)
                 ?? throw new BookNotFoundException(id);
             return book;
-        }
-
-        public async Task<List<Book>> GetAllBooksAsync(bool trackChanges)
-        {
-            var books = await _manager.Book.GetAllBooksAsync(trackChanges);
-            return books;
         }
     }
 }

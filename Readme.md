@@ -532,6 +532,9 @@ In the Repositories project
 - Entities Project:
 	- Add Author and Category models.
 	- Create AuthorParameters in RequestFeatures
+	- Create Dtos for Category and Author
+	- Add BookLinkParameters into Dtos
+	- Add custom exceptions.
 - Repositories Layer:
 	- In the RepositoryContext add DbSets for Categories and Authors
 	- In the Contracts add interfaces for Author and Category
@@ -541,4 +544,7 @@ In the Repositories project
 	- Add Configs for Author and Category.
 - WebApi layer:
 	- Add migration, drop database, and update database.
-	
+	- Add Mappings
+	- Add Scoped IoC record for AuthorLinks.
+- Services layer:
+	- Add ICategoryService, IAuthorService, IAuthorlinks into Contracts and add their implemetations Manager classes.
