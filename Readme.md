@@ -1,11 +1,11 @@
 # 1. A Brief Oveview of a RESTful API
-##  Creating the first project
+## 1.1.  Creating the first project
 - Create BookStore Folder and a BookStore solution in it.
 - Create BookStore/BookStoreApi Folder and BookStoreApi "webapi" (NET6.0) project and add it to the solution.
 - Delete example model and controller.
 - Add a Book model under Models (create) folder.
 - Add a BooksController (Empty WebApi Controller) under Controllers folder.
-### Adding In-Memory Mock Data
+### 1.1.1. Adding In-Memory Mock Data
 - Add a Data folder
 - Add a static ApplicationContext class into Data folder
 - Add Crud methods to controller.
@@ -66,12 +66,12 @@
 	- Select personal
 - Under the workspace select collections, then click on "+" button to create a collection. Name it to "Books"
 - In the collection click on New Request, and create a new request for each of the operation in the controller with related http request verb. Don't forget to save each request.
-## Global and Collection variables
+## 2.1. Global and Collection variables
 - We can use variables in order not to repeat urls.
 - Select https://localhost:PORT in any request url field. Click on set as variable, define a name (baseUrl) and select global. This part of the url in the field will change to: {{baseUrl}}, change all of the other requests to this. (eg: {{baseUrl}}/api/books/2)
 - Collection variables can be defined likewise, collection variables are valid only under the collection that is defined for.
 - Variables can be used in the bodies of the requests too.
-## Tests using postman
+## 2.2. Tests using postman
 - Test functionality of postman can be used for requests,
 	- Under the Tests tab of a selected request, test functions like below can be described:
 	```js
@@ -79,7 +79,7 @@
     	pm.response.to.have.status(200)
     })
 	```
-## Random Functions
+## 2.3. Random Functions
 - Mock data may be produced using postman and selected requests can be sent multiple times using iterations.
 	- To send a request 100 times, 
 	- Click on ... of the collection name or right click on the collection name (Books),
@@ -108,7 +108,7 @@
 - Delete WeatherForecast model and controller.
 - In the Solution Explorer, set this project as start up project.
 
-## EntitiyFramework Core
+## 3.1. EntitiyFramework Core
 - Add package Microsoft.EntityFrameworkCore, either use nuget package manager or use Package Manager Console (as follows):
 ```
 	Install-Package Microsoft.EntityFrameworkCore -Version 6.0.10 -ProjectName WebApi
@@ -118,7 +118,7 @@
 ```
 	Install-Package Microsoft.EntityFrameworkCore.SqlServer -Version 6.0.10 -ProjectName WebApi
 ```
-## Create Migations
+## 3.2. Create Migations
 - Add Microsoft.EntityFrameworkCore.Tools Package to manage migrations. This package is needed for command sets related to migrations and db operations. In the PMC:
 ```
 	Install-Package Microsoft.EntityFrameworkCore.Tools -Version 6.0.10 -ProjectName WebApi
@@ -136,16 +136,16 @@
 
 - Add "SeedData" migration and update db after creating BookConfig and overriding the OnModelCreating methot.
 
-## Data manipulation
+## 3.3. Data manipulation
 - Create Controller Methods.
 - To Use postman for testing, the request collection of the workspace that we created can be used by changing the port number of the beseUrl variable.
 - For PATCH verb and its method, install NewtonsoftJson and JsonPatch packages and add services record in the Program.cs
 # 4. Layered Architecture
-## Entities Layer
+## 4.1. Entities Layer
 - Add a Class Library project named Entitites
 - Move Book class under the WebApi/Models folder to Entities/Models And Delete the WebApi/Models folder.
 - Add reference to Entities into WebApi project and don't forget to edit namespaces while moving Book.class and resolvings.
-## Repositories Layer
+## 4.2. Repositories Layer
 - Add a Class Library project named Repositories
 - Add a Contracts folder under this project and add a generic interface named IRepositoryBase in it.
 - Add CRUD method signatures.
@@ -162,15 +162,15 @@
 - Create BookRepository implements IBookRepository and extends BookRepositoryBase
 - Create IRepositoryManager under Contracts
 - Create RepositoryManager implements IRepositoryManager under EfCore
-### Lazy Loading
+### 4.2.1. Lazy Loading
 - Refactor RepositoryManager
-### Service Extensions
+### 4.2.2. Service Extensions
 - Create Extensions folder under WebApi project.
 - Create ServicesExtensions under Extensions folder.
-### Integration of Repository Managers to Controller
+### 4.2.3. Integration of Repository Managers to Controller
 - Inject and edit BookController to use RepositoryManager instead of Context.
 - Add a method to ServicesExtension class for IoC
-## Services Layer
+## 4.3. Services Layer
 - Add a class library named Services
 - Add a folder named Contracts
 - Add an interface named IBookService
@@ -182,7 +182,7 @@
 - Add this to Program.cs
 - Inject ServiceManager to BooksController
 - Edit BooksController Methods accordingly
-## Presentation Layer
+## 4.4. Presentation Layer
 - Add a class library project named Presentation under solution
 - Rename the existing Class1 class to AssemblyReference
 - Add Controllers folder
@@ -202,7 +202,7 @@
     .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly)
     .AddNewtonsoftJson();
 	```
-## Repository Context Factory
+## 4.5. Repository Context Factory
 - Drop database
 - Since we removed Ef from WebApi to a separate project, we can not create a migration in WebApi (although we can create in the Repositories, which we don't want to.)
 - Create a ContextFactory folder under WebApi
@@ -223,27 +223,27 @@
 	```
 - Add an Extension Method to ServicesExtensions for IoC
 - Add Configuration for IoC to Program.cs
-## Using Logger in the project
+## 5.1. Using Logger in the project
 - Add logging lines wherever needed.
 
-# Global Exception Handling
-## Modeling Errors and Error Details
+# 6. Global Exception Handling
+## 6.1. Modeling Errors and Error Details
 - Add an ErrorModel folder to Entities project
 - Add a class ErrorDetails in this folder
-## Using Exception Handler
+## 6.2. Using Exception Handler
 - Add an ExceptionMiddlewareExtensions class into Extensions folder in the WebApi project
 - Set all Exception Status codes to 500 for now.
 - Configure Program.cs for the ConfigureExceptionHandler
 - After these steps, the app may be tested. The Exceptions thrown in te app will be serialized as ErrorDetails and the StatusCode will be set to 500: Internal Server Error
 - Remove try-catch blocks
-## Custom Exceptions
+## 6.3. Custom Exceptions
 - Add Exceptions folder under Entities
 - Add a NotFound abstract class extends Exception into it.
 - Add a BookNotFound sealed class extends NotFound
 - Return to ExceptionMiddlewareExtensions class in the Extensions folder of the main project and edit it according to Exception type.
 - Refactor Related methods that throw errors or return not found responses to throw BookNotFoundException.
 - Optional: Add a new custom Exception; BadRequestException
-# AutoMapper Implementation
+# 7. AutoMapper Implementation
 - Install automapper.Extensions.Microsoft.DependencyInjection versin 12.0.0 to services project.
 - In the Program.cs add record to services
 - Add DataTransferObjects folder to Entities project
@@ -252,7 +252,7 @@
 - Add MappingProfile extends Profile class into AutoMapper folder.
 - Add mappings into constructor using CreateMap method.
 - Refactor BooksController and Service layer to use BookUpdateDto
-# Content Negotiation
+# 8. Content Negotiation
 - Support or don't support various formats for Requests from Clients
 - Consider formats like Json, Xml and accept or don't accept, and response accordingly.
 - Configure Accept header
@@ -262,11 +262,11 @@
 	- add ReturnHttpNotAcceptable = true to send feedback that the format is not accepted with response 406 code.
 	- To send responses in xml format, add AddXmlDataContractSerializerFormatters
 	- Now the Api is able to respond either in Json or xml formats.
-## Serializability
+## 8.1. Serializability
 - For now, the Api cannot return list of record objects which are defined by contstructor (no props defined explicitly), in xml format, because of not being able to serialize.
 - To solve this add Serializable attribute. Bu this time, the result in xml requests will be quiet messy.
 - The absolute solution is define the classess or records with default constructors and with properties.
-## Custom Formatter
+## 8.2. Custom Formatter
 - Add Formatters folder under Utilities folder of WebApi
 - Add CsvOutputFormatter : TextOutputFormatter class in it to support csv response formats
 - Resolve MediaTypeHeaderValue using Microsoft (not System)
@@ -276,7 +276,7 @@
 - Configure Program.cs
 - Notice that this will only work for BookDto type, so for GetOneBook request to work, we need to refactor that controller method to return BookDto.
 
-# Validation with Annotation
+# 9. Validation with Annotation
 - Add a new abstract record model, BookManipulationDto, into DataTransferObjects folder in Entities.
 - Add validation annotations to its properties.
 - Extend BookUpdateDto to BookManipulationDto
@@ -292,59 +292,59 @@
 	- Add ModelState arg to ApplyTo method in the PatchOneBook method body.
 	- Add a method signature to IBookService and implement it in the BookManager
 	- Refactor PatchOneBook method in the controller.
-# Async Programming
+# 10. Async Programming
 - APM: Asyncronous Programming Model
 - EAP: Event-based Asyncronous Programming
 - TAP: Task-based Asyncronous Programming
-## Task-based Asyncronous Programming (TAP)
+## 10.1. Task-based Asyncronous Programming (TAP)
 Syncroned tasks procssed in the pipeline in the same Thread. Each Sync request is assigned to a Thread in the Thread pool. If there is no available Thread in the pool, then the sync request has to wait for a previous request to complete, and the assigned thread to return to the pool.  
 The difference of the async request is, async request doesn't has to wait for the previous process to complete. Every step in the pipeline is processed by a thread.
 - In he Repositories layer, refactor IBookRepository and BookRepository, refactor Get methods, wrap the retuned types into Task
 - In the IRepositoryManager and RepositoryManager, refactor Save method.
 - Rafactor the Methods the same way in the Services layer.
 - Refactor the Methods in the Presentation layer.
-# Action Filters
-## ActionFilter
+# 11. Action Filters
+## 11.1. ActionFilter
 - Add ActionFilters folder into Presentation layer
 - Create a class ValidationFilterAttribute : ActionFilterAttribute
 - override needed Methods of the base class
 - Add ValidationFilter attribute on Create and Update methods of the controller
 - Remove BadRequest and UnprocessibleEntity blocks.
 - Add IoC record to Program.cs
-## LogFilter
+## 11.2. LogFilter
 - Add LogDetails model into Entities/LogModel folder.
 - Add LogFilterAttribute extends ActionFilterAttribute into Presentation/ActionFilters
 - Add a method for Filter Attributes into ServicesExtensions in te main project.
 - Call this method from Program.cs to add them to the services.
 - Add attribute to BooksController to log all of the actions.
-# Pagination and Cors
-## Basic Pagination
+# 12. Pagination and Cors
+## 12.1. Basic Pagination
 - Add RequestFeatures folder into Entities project,
 - Add RequestParameters abstract class in this folder
 - Add BookParameters extends RequestParameters
 - In the IBooksRepository refactor GetAll method signatures to  use BookParameters
 - Refactor the implementation of IBookRepository
 - Refactor the methods all the way up to Presentation layer.
-## Meta data & paged list
+## 12.2. Meta data & paged list
 - Add MetaData and PagedList classes into RequestFeatures in the Entities project
 - Refactor all layers' GetAll methods.
-## Cors (Cross Origin resource sharing) Configuration
+## 12.3. Cors (Cross Origin resource sharing) Configuration
 - Add ConfigureCors method into ServicesExtensions
 - Add ConfigureCors call to Program.cs
-# Filtering
+# 14. Filtering
 - In the Entities project add properties to BookParameters class
 - In the Exceptions folder, make BadRequestException abstract and create two sub-classes of this class. Refactor the ExceptionMiddlewareExtensions class in the WebApi/Extensions folder accordingly.
 - In the Repositories project add BookRepositoriesExtensions class
 - In the BookRepository refactor the method using the Extension method.
 
-# Searching
+# 15. Searching
 - Add a SearchTerm property into BookParameters.
 - Refactor BookRepository to add "Search" method in the GetAll method.
 - Create a folder named Extensions in the Repositories project
 - Move BookRepositoryExtensions class into the folder
 - Add a "Search" method to the BookRepositoryExtensions class.
 
-# Sorting
+# 16. Sorting
 - Add OrderBy property into RequestParameters int the Entities project
 - Add a constructor into BookParameters class to set a default OrderBy = "Id"
 - Add a method named SortBy into BookRepositoryExtensions in the Repositories project
@@ -356,7 +356,7 @@ The difference of the async request is, async request doesn't has to wait for th
 - In the Repositories project, add OrderQueryBuilder class into Extensions folder.
 - Use this Builders method to refactor the BookRepositoryExtensions class.
 
-# Data Shaping
+# 17. Data Shaping
 Data shaping is not an essential feature that all apis need. By this feature we can let the client to choose which fields of the resources they want.
 - To enable this feature for all resources, add Fields property to Request parameters, or otherwise to enable for specifice resources, add this property to that parameters of that resource. (eg: for only Book, ad this prop to BookParameters class)
 - Add an interface into Contracts of Services layer
@@ -373,7 +373,7 @@ Data shaping is not an essential feature that all apis need. By this feature we 
 In the IBookService, change the signature of IBookService to return ExpandoObject
 - Change the implementation too, inject shaper into the class and refactor the GetAll method.
 - Modify the ServiceManager since the contstructor now needs another parameter.
-# Hateoas (Hypermedia as the Engine of Application State)
+# 18. Hateoas (Hypermedia as the Engine of Application State)
 To have Hypermedia support,
 - Entities project, add LinkModels folder, into folder add Link class
 - Create LinkResourceBase and LinkCollectionWrapper classes in the same folder
@@ -401,43 +401,43 @@ To have Hypermedia support,
 - Implement CreateForBook method in the BookLinks class
 - Crete a new private method named CreateForBooks and refactor the ReturnLinkedBooks with this method.
 
-# Http OPTIONS and HEAD Requests
-## OPTIONS verb
+# 19. Http OPTIONS and HEAD Requests
+## 19.1. OPTIONS verb
 - In the Presentation layer
 	- Add a new method named GetBooksOptions with HttpOptions attribute.
 	- Options request informs the Client Which Http verbs are allowed.
-## HEAD verb
+## 19.2. HEAD verb
 - Head verb is about the Headers of a request and response. No Body.
 - It has the same features with GET verb.
 - No need for a method for HEAD. Add HttpHead attribute on GetAllBooks Method onto HttpGet attribute.
 - Will return only headers
 
-# Root Documentation
+# 20. Root Documentation
 - Add a RootController into Presentation layer
 - Create the GetRoot method.
 - Add mediaType support lines into ServicesExtensions class in the WebApi/Extensions folder.
 
-# Versioning
+# 21. Versioning
 - Install Microsoft.AspNetCore.Mvc.Versioning (5.0.0) into presentation layer.
 - In the ServiesExtensions add a Versioning config method. Add this to Program.cs
-## Books V2 - With params
+## 21.1. Books V2 - With params
 - Add BooksV2Controller into controllers
 - Add Version 1.0 attribute to BooksController and 2.0 to BooksV2Controller
 - Create a GetAllBooksAsync method
 - Add method to the IBookService and implement it in the BookService
 - Cascade the method to Repositories layer.
-## Books V2 - With URL
+## 21.2. Books V2 - With URL
 - Add {v:apiversion}/ to Route attribute.
-## Books V2 - With Header
+## 21.3. Books V2 - With Header
 - Remove {v:apiversion}/ from Route attributes make it as before.
 - In the ServicesExtensions add the ApiVersionReader line into AddApiVersioning method.
-## Deprecating Versions
+## 21.4. Deprecating Versions
 - Add Deprecated = true to ApiVersion Attribute.
-## Convensions 
+## 21.5. Convensions 
 - In the ServicesExtensions, add Convensions lines
 - Remove ApiVersion Attributes...
 
-# Caching
+# 22. Caching
 - Add ResponseCache attribute on GetAll method of the BooksController. By doing this, a new header will be added to the response, meaning the response is cachable.
 - In the ServicesExtensions add a ConfigureResponseCaching method, and call this in the Program.cs
 - Add app.UseResponseCaching() under the Cors config line in the Program.cs
@@ -446,7 +446,7 @@ To have Hypermedia support,
 	- In the Program.cs, in the AddControllers method, add cache profiles config.
 	- Add ResponseCache attribute with CacheProfile parameter.
 	- We'll see 300 seconds duration cache in the responses except the getall method, since it has its own ResponseCache attribute on it.
-## Caching with Marvin
+## 22.1. Caching with Marvin
 - Install Marvin.Cache.Headers (6.0.0) package into Presentation layer.
 - Add a ConfigureHttpCacheHeaders method into ServicesExtensions
 - Call this from Program.cs and add UseHttpCacheHeaders() line (make sure it is) under the Cors line.
@@ -454,7 +454,7 @@ To have Hypermedia support,
 - The ResponseCache attributes now can be removed.
 - The default config is public cache, duration 60 seconds. We can change these in the config of Services.Extensions file or/and We can use HttpCacheExpiration attribute with parameters.
 
-# Rate Limiting
+# 23. Rate Limiting
 We can limit rate of requests. We'll respond with status code 429 Too many requests.
 - Install AspNetCoreRateLimit -Version 4.0.1 package to WebApi project.
 - In the Program.cs add AddMemoryCache to Services.
@@ -465,10 +465,10 @@ We can limit rate of requests. We'll respond with status code 429 Too many reque
 X-Rate-Limit-Limit, X-Rate-Limit-Remaining, X-Rate-Limit-Reset.
 - The api will return Too Many Requests status code 429 when the number of requests exceeds the rate in the defined period.
 
-# Authentication and Authorization
+# 24. Authentication and Authorization
 Authentication ~ Login, Authorization ~ Permits  
 Identity framework with JSON Web Token (JWT) will be used in this subject.
-## Identity
+## 24.1. Identity
 - Install Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.0) package into Identity project.
 - In the Entities project add User : IdentityUser class into Models folder.
 - In the Repositories project, change RepositoryContext : DbContext to inherit from IdentityDbContext<User> and refactor OnModelCreating method.
@@ -479,12 +479,12 @@ Identity framework with JSON Web Token (JWT) will be used in this subject.
 	- UseAuthentication before UseAuthorization
 - In the PM add a migration. Make sure default (target) project is WebApi
 - Use Update-Database command to create tables.
-## Defining Roles
+## 24.2. Defining Roles
 In the Repositories project
 - Add RoleConfiguration class into EfCore.Config folder, add roles into it.
 - In the RepositoryContext, add RoleConfiguration or use Assembly to get all type configs.
 - Add migration and update database
-## User
+## 24.3. User
 - Add UserForRegistrationDto into Entities project DataTransferObjects folder
 - Add mapping for this class into MappingProfile in the Utilities folder of WebApi
 - In the Services layer, 
@@ -493,15 +493,15 @@ In the Repositories project
 	- Add AuthenticationManager to ServiceManager
 - In the Presentation layer,
 	- Add a new controller AuthenticationController and the RegisterUser method.
-## JSON Web Token (JWT)
+## 24.5. JSON Web Token (JWT)
 - In the WebApi project, add JwtSettings into appsettings.json
 - Install Microsoft.AspNetCore.Authentication.JwtBearer (6.0.0) packet to WebApi project.
 - Add a config method into ServicesExtensions and call in the Program.cs
 
-## Securing Endpoints
+## 24.6. Securing Endpoints
 - Add Authorize attribute onto GetAll method to secure the method.
 
-## Authentication & JWT
+## 24.7. Authentication & JWT
 - In the entities project Add UserForAuthenticationDto record type into the Dtos folder.
 - To validate user, go to the Services Layer,
 	- Add ValidateUser method signature into IAuthenticationService
@@ -512,7 +512,7 @@ In the Repositories project
 - In the Presentation layer,
 	- Add an Authenticate (login) method with HttpPost attribute
 	- Add roles authentications to BooksController methods.
-## Refresh Token
+## 24.8. Refresh Token
 - In the Entities project, add properties RefreshToken and RefreshTokenExpiryTime to User.
 - Add a migration and update database
 - Add a Dto named TokenDto
@@ -521,8 +521,9 @@ In the Repositories project
 - In the Services layer, add a Method named RefreshToken to IAuthenticationService and implement it in the AuthenticationManager.
 	- While implementing the method, create a  RefreshTokenBadRequestException in the Entities/Exceptions.
 - In the presentation layer, Create a new post method named Refresh into AuthenticationController.
-# Documentation
-## Configuring Swagger
+# 25. Documentation
+## 25.1. Configuring Swagger
 - In the WebApi project add ConfigureSwagger method into ServicesExtensions.
 - Change the records in the Program.cs (app.UseSwaggerUI, ConfigureSwagger)
 - Go to Controllers in the presentation layer. To define of which version a controller is, add the ApiExplorerSettings Attribute.
+
