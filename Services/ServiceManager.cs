@@ -21,15 +21,12 @@ namespace Services
             IConfiguration configuration,
             IBookLinks bookLinks,
             IAuthorLinks authorLinks,
-            UserManager<User> userManager,
-            ICategoryService categoryService,
-            IAuthorService authorService)
+            UserManager<User> userManager)
         {
-            _bookService = new Lazy<IBookService>(() =>
-            new BookManager(repositoryManager, mapper, bookLinks));
-
             _authenticationService = new Lazy<IAuthenticationService>(() =>
             new AuthenticationManager(loggerService, mapper, userManager, configuration));
+
+            _bookService = new Lazy<IBookService>(() => new BookManager(repositoryManager, mapper, bookLinks));
             _categoryService = new Lazy<ICategoryService>(() => new CategoryManager(repositoryManager, mapper));
             _authorService = new Lazy<IAuthorService>(() => new AuthorManager(repositoryManager, mapper, authorLinks));
         }

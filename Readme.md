@@ -548,3 +548,5 @@ In the Repositories project
 	- Add Scoped IoC record for AuthorLinks.
 - Services layer:
 	- Add ICategoryService, IAuthorService, IAuthorlinks into Contracts and add their implemetations Manager classes.
+- Presentation layer,
+	- Create Controllers, add Authentications and versioning...

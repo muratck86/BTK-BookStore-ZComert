@@ -6,7 +6,7 @@
 
         public AuthorParameters()
         {
-            OrderBy = "Name";
+            OrderBy = "LastName";
         }
     }
 
