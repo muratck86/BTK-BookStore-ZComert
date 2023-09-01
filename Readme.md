@@ -550,3 +550,7 @@ In the Repositories project
 	- Add ICategoryService, IAuthorService, IAuthorlinks into Contracts and add their implemetations Manager classes.
 - Presentation layer,
 	- Create Controllers, add Authentications and versioning...
+- Test the Api
+## 26.2 Relations, One-To-Many Relation
+- A Book has one Category, a category have many books.
+- A Book has one Author, an author can publish  many books.

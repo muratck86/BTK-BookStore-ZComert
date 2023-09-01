@@ -7,5 +7,7 @@
         public String? LastName { get; set; }
         public DateTime? BirthDate { get; set; }
         public String? Country { get; set; }
+
+        public ICollection<Book> Books { get; set; }
     }
 }

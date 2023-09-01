@@ -9,5 +9,12 @@ namespace Entities.Models
         public int PageCount { get; set; }
         public int Edition { get; set; }
         public int ReleaseYear { get; set; }
+
+        //Ref: navigation property
+        public int CategoryId { get; set; }
+       
+
+        public int AuthorId { get; set; }
+       
     }
 }
