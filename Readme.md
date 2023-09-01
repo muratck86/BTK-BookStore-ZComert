@@ -527,3 +527,18 @@ In the Repositories project
 - Change the records in the Program.cs (app.UseSwaggerUI, ConfigureSwagger)
 - Go to Controllers in the presentation layer. To define of which version a controller is, add the ApiExplorerSettings Attribute.
 
+# 26. Expanding Resources and Features
+## 26.1. Adding Categories and Authors, Expanding Book
+- Entities Project:
+	- Add Author and Category models.
+	- Create AuthorParameters in RequestFeatures
+- Repositories Layer:
+	- In the RepositoryContext add DbSets for Categories and Authors
+	- In the Contracts add interfaces for Author and Category
+	- Add CategoryRepository and AuthorRepository into EfCore
+	- In the extensions folder add an AuthorRepositoryExtensions class
+	- Add Author and Category to IRepositoryManager and RepositoryManager
+	- Add Configs for Author and Category.
+- WebApi layer:
+	- Add migration, drop database, and update database.
+	

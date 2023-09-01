@@ -1,12 +1,6 @@
 ﻿using Entities.Models;
-using System;
-using System.Collections.Generic;
-using System.Formats.Asn1;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Linq.Dynamic.Core;
-using System.Threading.Tasks;
+
 
 namespace Repositories.Extensions
 {
