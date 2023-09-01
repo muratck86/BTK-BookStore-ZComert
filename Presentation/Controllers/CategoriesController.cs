@@ -44,7 +44,7 @@ namespace Presentation.Controllers
             return StatusCode(201, result);
         }
 
-        [HttpPut]
+        [HttpPut("{id:int}")]
         [Authorize(Roles = "Admin,Editor")]
         [ValidationFilter]
         public async Task<IActionResult> UpdateOneCategory([FromRoute(Name ="id")] int id, [FromBody] CategoryUpdateDto category)
@@ -53,9 +53,8 @@ namespace Presentation.Controllers
             return Ok(category);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
-        [ValidationFilter]
         public async Task<IActionResult> DeleteOneCategoryAsync([FromRoute(Name ="id")] int id)
         {
             await _services.CategoryService.DeleteOneCategoryAsync(id);

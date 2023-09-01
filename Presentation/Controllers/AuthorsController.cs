@@ -67,7 +67,6 @@ namespace Presentation.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        [ValidationFilter]
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteOneAuthorAsync([FromRoute(Name = "id")] int id)
         {

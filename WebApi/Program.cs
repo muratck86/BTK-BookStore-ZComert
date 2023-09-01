@@ -83,9 +83,9 @@ app.UseIpRateLimiting();
 
 app.UseCors("CorsPolicy");
 
-app.UseResponseCaching();
+//app.UseResponseCaching();
 
-app.UseHttpCacheHeaders();
+//app.UseHttpCacheHeaders();
 
 app.UseAuthentication();
 
