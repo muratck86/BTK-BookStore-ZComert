@@ -554,3 +554,8 @@ In the Repositories project
 ## 26.2 Relations, One-To-Many Relation
 - A Book has one Category, a category have many books.
 - A Book has one Author, an author can publish  many books.
+- Add CategoryId, Category, AuthorId and Author to Book.
+- Add Books to Category and Author.
+- Add BookDetailsDto and configure mapper to map from Book to this.
+- Configure Repository to include Category and Author navigational properties to Book.
+-Refactor BooksController get all book details and create book with AuthorId and CategoryId.
