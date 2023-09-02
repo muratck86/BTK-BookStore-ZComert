@@ -39,10 +39,10 @@ namespace Services
 
             return (linkResponse, pagedBooks.MetaData);
         }
-        public async Task<List<Book>> GetAllBooksAsync(bool trackChanges)
+        public async Task<List<BookDetailsDto>> GetAllBooksAsync(bool trackChanges)
         {
-            var books = await _manager.Book.GetAllBooksAsync(trackChanges);
-            return books;
+            var books = await _manager.Book.GetAllBookDetailsAsync(trackChanges);
+            return _mapper.Map<List<BookDetailsDto>>(books);
         }
 
         public async Task<BookDto> GetOneBookByIdAsync(int id, bool trackChanges = false)

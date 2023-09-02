@@ -36,10 +36,15 @@ namespace Repositories.EfCore
 
         public void UpdateOneBook(Book book) => Update(book);
 
-        public async Task<List<Book>> GetAllBooksAsync(bool trackChanges)
+        public async Task<List<Book>> GetAllBookDetailsAsync(bool trackChanges)
         {
-            return await GetAll(trackChanges)
+            var books = await GetAll(trackChanges)
+                .Include(b => b.Author)
+                .Include(b => b.Category)
                 .OrderBy(b => b.Id).ToListAsync();
+
+
+            return books;
         }
     }
 }

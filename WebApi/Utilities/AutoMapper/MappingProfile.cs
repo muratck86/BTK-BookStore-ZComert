@@ -23,6 +23,10 @@ namespace WebApi.Utilities.AutoMapper
             CreateMap<Author, AuthorDto>().ReverseMap();
             CreateMap<AuthorCreateDto, Author>();
             CreateMap<AuthorUpdateDto, Author>();
+
+            CreateMap<Book, BookDetailsDto>()
+                .ForMember(b => b.CategoryName, opt => opt.MapFrom(b => b.Category.Name))
+                .ForMember(b => b.AuthorName, opt => opt.MapFrom(b => b.Author.FirstName + " " + b.Author.LastName));
         }
     }
 }
