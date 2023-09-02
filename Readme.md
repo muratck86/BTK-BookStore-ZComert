@@ -563,3 +563,5 @@ In the Repositories project
 ## Upload
 - Create new controller named FilesController, add an Upload POST method.
 - Create a Media folder in the WebApi project.
+## Download
+- Create a Get method in the FilesController.
