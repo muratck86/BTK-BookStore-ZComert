@@ -50,14 +50,19 @@ namespace Services
             return new LinkResponse { HasLinks = true, LinkedEntities = bookCollection };
         }
 
+        private string GetControllerName(HttpContext httpContext)
+        {
+            return httpContext
+                .GetRouteData()
+                .Values["controller"]
+                .ToString().ToLower();
+        }
+
         private void CreateForBooks(
             HttpContext httpContext,
             LinkCollectionWrapper<Entity> bookCollectionWrapper)
         {
-            var controllerName = httpContext
-                .GetRouteData()
-                .Values["controller"]
-                .ToString().ToLower();
+            var controllerName = GetControllerName(httpContext);
             bookCollectionWrapper.Links.Add(new Link()
             {
                 Href = $"/api/{controllerName}/",
@@ -68,12 +73,8 @@ namespace Services
 
         private List<Link> CreateForBook(HttpContext httpContext, BookDto bookDto, string fields)
         {
-            var controllerName = httpContext
-                .GetRouteData()
-                .Values["controller"]
-                .ToString()
-                .ToLower();
-            var href = $"/api/{controllerName}";
+            var controllerName = GetControllerName(httpContext);
+            var href = $"/api/{controllerName}/";
             var links = new List<Link>()
             {
                 new Link

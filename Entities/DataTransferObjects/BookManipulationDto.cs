@@ -12,5 +12,11 @@ namespace Entities.DataTransferObjects
         [Required]
         [Range(10,10000, ErrorMessage = "Price must be between 10 and 10000")]
         public decimal Price { get; init; }
+
+        public int PageCount { get; set; }
+
+        public int Edition { get; set; }
+
+        public int ReleaseYear { get; set; }
     }
 }

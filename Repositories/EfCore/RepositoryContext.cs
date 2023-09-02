@@ -1,7 +1,6 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Repositories.EfCore.Config;
 using System.Reflection;
 
 namespace Repositories.EfCore
@@ -11,6 +10,8 @@ namespace Repositories.EfCore
         public RepositoryContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Author> Authors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

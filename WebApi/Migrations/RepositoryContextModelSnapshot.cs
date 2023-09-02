@@ -22,6 +22,67 @@ namespace WebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Entities.Models.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BirthDate = new DateTime(1947, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Country = "Brazil",
+                            FirstName = "Paulo",
+                            LastName = "Coelho"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BirthDate = new DateTime(1949, 2, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Country = "France",
+                            FirstName = "Amin",
+                            LastName = "Maalouf"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BirthDate = new DateTime(1923, 10, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Country = "Turkey",
+                            FirstName = "Yaşar",
+                            LastName = "Kemal"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BirthDate = new DateTime(1960, 9, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Country = "Turkey",
+                            FirstName = "Ahmet",
+                            LastName = "Ümit"
+                        });
+                });
+
             modelBuilder.Entity("Entities.Models.Book", b =>
                 {
                     b.Property<int>("Id")
@@ -30,8 +91,23 @@ namespace WebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Edition")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PageCount")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("money");
+
+                    b.Property<int>("ReleaseYear")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -39,26 +115,151 @@ namespace WebApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Books");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Price = 75m,
-                            Title = "Karagöz ve Hacivat"
+                            AuthorId = 3,
+                            CategoryId = 7,
+                            Edition = 1,
+                            PageCount = 355,
+                            Price = 105m,
+                            ReleaseYear = 1945,
+                            Title = "The Legend of Ararat"
                         },
                         new
                         {
                             Id = 2,
-                            Price = 105m,
-                            Title = "Semerkant"
+                            AuthorId = 4,
+                            CategoryId = 1,
+                            Edition = 3,
+                            PageCount = 425,
+                            Price = 145m,
+                            ReleaseYear = 2003,
+                            Title = "Patasana"
                         },
                         new
                         {
                             Id = 3,
+                            AuthorId = 1,
+                            CategoryId = 7,
+                            Edition = 5,
+                            PageCount = 251,
                             Price = 90m,
-                            Title = "Simyacı"
+                            ReleaseYear = 1982,
+                            Title = "The Alchemist"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AuthorId = 1,
+                            CategoryId = 2,
+                            Edition = 3,
+                            PageCount = 388,
+                            Price = 125m,
+                            ReleaseYear = 1992,
+                            Title = "Veronica Decides to Die"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AuthorId = 2,
+                            CategoryId = 6,
+                            Edition = 18,
+                            PageCount = 295,
+                            Price = 110m,
+                            ReleaseYear = 1996,
+                            Title = "Samarkand"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Mystery"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Romance"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Fiction"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Horror"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Memoir"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Biography"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Fantasy"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Poetry"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Thriller"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Humor"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Science-Fiction"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Self-Help"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Short Stories"
                         });
                 });
 
@@ -168,22 +369,22 @@ namespace WebApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "353dd17c-d808-490b-9e48-03aacd874cb7",
-                            ConcurrencyStamp = "68916206-bcdc-443c-a40e-e82847595016",
+                            Id = "03782bc7-27d4-4be2-9340-10dd14783724",
+                            ConcurrencyStamp = "1789e4b0-6150-4831-82f8-730f22885e45",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "1f9eb5cf-3162-4f73-83c8-a5dcc5eda7ac",
-                            ConcurrencyStamp = "f0ba52ae-336c-4256-be4a-7f0de1bfa2f2",
+                            Id = "c547002e-89bd-4dbf-92d5-e25994b3e0a9",
+                            ConcurrencyStamp = "ab575c6c-902f-46ee-a611-f035cde4770c",
                             Name = "Editor",
                             NormalizedName = "EDITOR"
                         },
                         new
                         {
-                            Id = "21412b2e-5cb1-42fe-8f8d-2bde0517943e",
-                            ConcurrencyStamp = "8e6b93d8-04d7-4d8e-958a-01f20fcece4e",
+                            Id = "b7b1651a-5d48-482d-9903-f09d7d2beec4",
+                            ConcurrencyStamp = "72fcba68-3cda-475a-8f80-759c747133c1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -295,6 +496,25 @@ namespace WebApi.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Entities.Models.Book", b =>
+                {
+                    b.HasOne("Entities.Models.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Category", "Category")
+                        .WithMany("Books")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -344,6 +564,16 @@ namespace WebApi.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.Models.Author", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Entities.Models.Category", b =>
+                {
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

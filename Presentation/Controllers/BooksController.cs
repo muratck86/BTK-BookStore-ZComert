@@ -15,7 +15,6 @@ namespace Presentation.Controllers
     [Route("api/[controller]")]
     [ApiController]
     //[ResponseCache(CacheProfileName ="5mins")]
-    [ApiExplorerSettings(GroupName = "v1")]
     public class BooksController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -33,7 +32,7 @@ namespace Presentation.Controllers
         //[HttpCacheExpiration(CacheLocation = CacheLocation.Public, MaxAge = 90)]
         public async Task<IActionResult> GetAllBooksAsync([FromQuery]BookParameters bookParameters)
         {
-            var linkParameters = new LinkParameters()
+            var linkParameters = new BookLinkParameters()
             {
                 BookParameters = bookParameters,
                 HttpContext = HttpContext
@@ -111,6 +110,14 @@ namespace Presentation.Controllers
         {
             Response.Headers.Add("Allow", "GET, PUT, POST, PATCH, DELETE, HEAD, OPTIONS");
             return Ok();
+        }
+
+        [HttpGet("details")]
+        [Authorize]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var result = await _serviceManager.BookService.GetAllBooksAsync(false);
+            return Ok(result);
         }
     }
 }

@@ -527,3 +527,35 @@ In the Repositories project
 - Change the records in the Program.cs (app.UseSwaggerUI, ConfigureSwagger)
 - Go to Controllers in the presentation layer. To define of which version a controller is, add the ApiExplorerSettings Attribute.
 
+# 26. Expanding Resources and Features
+## 26.1. Adding Categories and Authors, Expanding Book
+- Entities Project:
+	- Add Author and Category models.
+	- Create AuthorParameters in RequestFeatures
+	- Create Dtos for Category and Author
+	- Add BookLinkParameters into Dtos
+	- Add custom exceptions.
+- Repositories Layer:
+	- In the RepositoryContext add DbSets for Categories and Authors
+	- In the Contracts add interfaces for Author and Category
+	- Add CategoryRepository and AuthorRepository into EfCore
+	- In the extensions folder add an AuthorRepositoryExtensions class
+	- Add Author and Category to IRepositoryManager and RepositoryManager
+	- Add Configs for Author and Category.
+- WebApi layer:
+	- Add migration, drop database, and update database.
+	- Add Mappings
+	- Add Scoped IoC record for AuthorLinks.
+- Services layer:
+	- Add ICategoryService, IAuthorService, IAuthorlinks into Contracts and add their implemetations Manager classes.
+- Presentation layer,
+	- Create Controllers, add Authentications and versioning...
+- Test the Api
+## 26.2 Relations, One-To-Many Relation
+- A Book has one Category, a category have many books.
+- A Book has one Author, an author can publish  many books.
+- Add CategoryId, Category, AuthorId and Author to Book.
+- Add Books to Category and Author.
+- Add BookDetailsDto and configure mapper to map from Book to this.
+- Configure Repository to include Category and Author navigational properties to Book.
+-Refactor BooksController get all book details and create book with AuthorId and CategoryId.
