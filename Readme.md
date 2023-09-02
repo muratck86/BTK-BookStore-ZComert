@@ -559,3 +559,7 @@ In the Repositories project
 - Add BookDetailsDto and configure mapper to map from Book to this.
 - Configure Repository to include Category and Author navigational properties to Book.
 -Refactor BooksController get all book details and create book with AuthorId and CategoryId.
+# 27 File Operations
+## Upload
+- Create new controller named FilesController, add an Upload POST method.
+- Create a Media folder in the WebApi project.
