@@ -38,7 +38,8 @@ namespace Repositories.EfCore
 
         public async Task<List<Book>> GetAllBooksAsync(bool trackChanges)
         {
-            return await GetAll(trackChanges).OrderBy(b => b.Id).ToListAsync();
+            return await GetAll(trackChanges)
+                .OrderBy(b => b.Id).ToListAsync();
         }
     }
 }
